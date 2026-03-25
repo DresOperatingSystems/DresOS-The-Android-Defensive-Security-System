@@ -1370,5 +1370,3 @@ MIT License — see [LICENSE](LICENSE) file.
 **You now have a 100% de-Googled, operationally secure Android device** — no Google apps, no Google Services, AOSmium WebView system-wide, Tor + I2P + DNSCrypt + Firewall via iVizblePro, and a complete defensive security app suite. Every tool is open-source, every APK is sourced directly from verified developers, and every component is designed to give you control of your own device, your own data, and your own privacy.
 
 ---
-
-*Topics: android · open-source · foss · twrp · magisk · degoogle · degoogled-android · opsec · cybersecurity · android-security · privacy · defensive-security · tor · i2p · dnscrypt · dresoS*
