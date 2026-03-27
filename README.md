@@ -1371,4 +1371,12 @@ MIT License — see [LICENSE](LICENSE) file.
 
 ---
 
-**tbis is an update to both the degoogled and opsec project*
+**This is an update to both the degoogled and opsec project**
+
+---
+
+## Wallpapers
+**Below you can find the wallpapers for the DresOS system (we will add more as we make more)**
+
+---
+![1001118862](https://github.com/user-attachments/assets/72997ac8-a6a9-477a-814b-248b6ca99146)
