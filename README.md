@@ -1,6 +1,7 @@
-# DresOS-The-Android-Defensive-Security-System
+# DresOS Android Defensive Security System
+
 **A Complete Rooted DeGoogling + Operational Security Guide**
-**TWRP + Magisk + MicroG + Fossify + iVizblePro + DresOS App Suite – For 2026**
+**TWRP + Magisk + MicroG + Fossify + InviZible Pro + AFWall+ + DresOS App Suite – For 2026**
 
 ---
 
@@ -36,36 +37,39 @@ Proceed at your own risk.
 * [Step 7: Change System WebView to AOSmium](#step-7-change-system-webview-to-aosmium)
 * [Step 8: Set Up Shizuku](#step-8-set-up-shizuku)
 * [Step 9: Fine-Tune Debloat & Cleanup](#step-9-fine-tune-debloat--cleanup)
-* [Step 10: Replace System File Manager, Package Installer & Download Manager](#step-10-replace-system-file-manager-package-installer--download-manager)
-* [Step 11: Final Setup & Defaults](#step-11-final-setup--defaults)
-* [Step 12: Test & Backup](#step-12-test--backup)
+* [Step 11: Replace System File Manager, Package Installer & Download Manager](#step-10-replace-system-file-manager-package-installer--download-manager)
+* [Step 12: Final Setup & Defaults](#step-11-final-setup--defaults)
+* [Step 13: Test & Backup](#step-13-test--backup)
 
 ### Part 2 — Operational Security (OPSEC Stack)
 
 * [OPSEC Overview](#opsec-overview)
 * [OPSEC Step 1: Configure DNS and MAC Randomization](#opsec-step-1-configure-dns-and-mac-randomization)
-* [OPSEC Step 2: Set Up iVizblePro — Your All-in-One Privacy Engine](#opsec-step-2-set-up-ivizplepro--your-all-in-one-privacy-engine)
-* [OPSEC Step 3: Set Up Secure Email with Tuta](#opsec-step-3-set-up-secure-email-with-tuta)
-* [OPSEC Step 4: Spoof Location with Fake Traveler](#opsec-step-4-spoof-location-with-fake-traveler)
-* [OPSEC Step 5: Final Checks and Hardening Tips](#opsec-step-5-final-checks-and-hardening-tips)
+* [OPSEC Step 2: Set Up InviZible Pro in Proxy + Root Mode](#opsec-step-2-set-up-invizible-pro-in-proxy--root-mode)
+* [OPSEC Step 3: Set Up AFWall+ — Root-Level Kernel Firewall](#opsec-step-3-set-up-afwall--root-level-kernel-firewall)
+* [OPSEC Step 4: Set Up Secure Email — Tuta + Duck Addresses](#opsec-step-4-set-up-secure-email--tuta--duck-addresses)
+* [OPSEC Step 5: Spoof Location with Fake Traveler](#opsec-step-5-spoof-location-with-fake-traveler)
+* [OPSEC Step 6: Final Checks and Hardening Tips](#opsec-step-6-final-checks-and-hardening-tips)
 
 ### Part 3 — DresOS Defensive App Suite
 
 * [Apps Overview](#apps-overview)
-* [ZArchiver Pro](#1-zarchiver-pro--file-manager--aes-encryption)
-* [IYPS](#2-iyps--password-strength-analyser--generator)
-* [RedReader](#3-redreader--private-reddit-client)
-* [URL Check](#4-url-check--link-scanner)
-* [Hypatia](#5-hypatia--open-source-antivirus)
-* [OONI Probe](#6-ooni-probe--network-censorship-detector)
-* [iVizblePro](#7-ivizplepro--all-in-one-proxy-firewall--vpn)
-* [Metrolist](#8-metrolist--private-youtube-music-client)
-* [Arcane Chat](#9-arcane-chat--decentralized-encrypted-messaging)
-* [Aurora Store](#10-aurora-store--anonymous-app-store)
-* [Fossify Suite](#11-fossify-suite--complete-foss-system-apps)
-* [HeliBoard](#12-heliboard--offline-keyboard)
-* [Tuta Mail](#13-tuta-mail--encrypted-email)
-* [AOSmium Browser](#14-aosmium-browser--privacy-first-web-browser)
+* [1. ZArchiver Pro](#1-zarchiver-pro--file-manager--aes-encryption)
+* [2. IYPS](#2-iyps--password-strength-analyser--generator)
+* [3. RedReader](#3-redreader--private-reddit-client)
+* [4. URL Check](#4-url-check--link-scanner)
+* [5. Hypatia](#5-hypatia--open-source-antivirus)
+* [6. OONI Probe](#6-ooni-probe--network-censorship-detector)
+* [7. InviZible Pro](#7-invizible-pro--tor--i2p--dnscrypt-in-proxy--root-mode)
+* [8. AFWall+](#8-afwall--root-level-iptables-firewall)
+* [9. Metrolist](#9-metrolist--private-youtube-music-client)
+* [10. Arcane Chat](#10-arcane-chat--decentralized-encrypted-messaging)
+* [11. Aurora Store](#11-aurora-store--anonymous-app-store)
+* [12. Fossify Suite](#12-fossify-suite--complete-foss-system-apps)
+* [13. HeliBoard](#13-heliboard--offline-keyboard)
+* [14. Tuta Mail](#14-tuta-mail--encrypted-email)
+* [15. DuckDuckGo Privacy Browser](#15-duckduckgo-privacy-browser--primary-browser)
+* [16. AOSmium WebView](#16-aosmium--system-webview-privacy-hardened-webview-engine)
 
 ### Appendix
 
@@ -92,10 +96,12 @@ Download **only** from these official links (2026). Install **F-Droid** first �
 | **De-Bloater** | Fine-tune system app removal | [F-Droid](https://f-droid.org/packages/com.sunilpaulmathew.debloater/) / [GitHub](https://github.com/sunilpaulmathew/De-Bloater) |
 | **Noogle microG** | Magisk module — replaces Google Play Services | [GitHub Releases](https://github.com/SelfRef/noogle-magisk/releases) |
 | **LSPosed** | Advanced Xposed-style module framework | [GitHub Releases](https://github.com/LSPosed/LSPosed/releases) |
-| **Open WebView** | Magisk module — makes WebView switching permanent | [GitHub](https://github.com/Magisk-Modules-Alt-Repo/open_webview) |
+| **Open WebView** | Magisk module — installs Vanadium as system WebView + unlocks WebView selector; also used to build AOSmium module | [Download ZIP v2.5.2](https://github.com/Magisk-Modules-Alt-Repo/open_webview/releases/download/v2.5.2/open-webview.zip) |
+| **AFWall+** | Root-level iptables firewall — per-app kernel-level rules, mobile data proxy redirect, no VPN slot | [F-Droid](https://f-droid.org/packages/dev.ukanth.ufirewall/) / [GitHub](https://github.com/ukanth/afwall) |
 | **SD Maid SE** | Deep system cleaner + remnant finder | [F-Droid](https://f-droid.org/packages/eu.darken.sdmse/) |
 | **Fossify Suite** | Phone, Messages, Gallery, Calendar, Files, Launcher, Contacts, Music | [fossify.org/apps](https://www.fossify.org/apps/) (all via F-Droid) |
-| **AOSmium** | System WebView only (replaces Google's Android System WebView) | [AXP.OS F-Droid Repo](https://axpos.org/F-Droid) / [Manual Releases](https://codeberg.org/AXP-OS/app_aosmium/releases) |
+| **AOSmium** | Primary system WebView (installed via Magisk module you build in Step 7) | [Manual APK — codeberg.org](https://codeberg.org/AXP-OS/app_aosmium/releases) |
+| **InviZible Pro** | Tor + I2P + DNSCrypt in proxy + root mode — IP anonymisation, encrypted DNS, no VPN slot used | [F-Droid direct APK](https://f-droid.org/repo/pan.alexander.tordnscrypt.stable_26603.apk) / [F-Droid search: InviZible Pro](https://f-droid.org/packages/pan.alexander.tordnscrypt.stable/) |
 | **DuckDuckGo Privacy Browser** | Primary browser (Chrome replacement) | [F-Droid](https://f-droid.org/packages/com.duckduckgo.mobile.android/) |
 | **Aurora Store** | Anonymous Play Store alternative | [F-Droid](https://f-droid.org/packages/com.aurora.store/) |
 | **HeliBoard** | Fully offline keyboard (no Gboard) | [F-Droid](https://f-droid.org/packages/helium314.keyboard/) |
@@ -124,7 +130,8 @@ Here is exactly what each core app replaces and why it is better for privacy:
 | Fossify Gallery / Calendar / Launcher / Contacts / Music | Stock Google equivalents | All open source, no cloud sync or telemetry |
 | Download Navi | Google Download Manager | FOSS download manager, zero Google components |
 | SAI (Split APK Installer) | Google Package Installer | FOSS installer with signature verification, no Google calls home |
-| iVizblePro | Orbot + VPN apps + DNS apps + Firewall apps | Single app combining Tor, I2P, DNSCrypt, and firewall — uses Android VPN slot directly |
+| InviZible Pro | Orbot + separate DNS/I2P apps | Combines Tor, I2P, and DNSCrypt in proxy + root mode — no VPN slot used; IP spoofing via Android system proxy; iptables DNS redirect at kernel level |
+| AFWall+ | No equivalent in stock Android | Root-level iptables firewall; per-app internet blocking at kernel level; custom rules for mobile data proxy routing; works independently of VPN and proxy layers |
 
 ---
 
@@ -215,7 +222,7 @@ Reboot → open Magisk app → you are rooted. Keep Magisk app installed — you
    * **Download Navi**
    * **SAI (Split APK Installer)**
    * **Fake Traveler**
-3. Add the **AXP.OS F-Droid repo** to install AOSmium (see Step 7 for details).
+3. Download the **AOSmium APK** from [codeberg.org/AXP-OS/app_aosmium/releases](https://codeberg.org/AXP-OS/app_aosmium/releases) to your PC — you will convert it into a Magisk module in Step 7.
 
 Do **not** open or configure these apps yet — follow each step in order.
 
@@ -227,7 +234,10 @@ Open **Magisk app** → **Modules** → **Install from storage** and flash each 
 
 1. **Noogle microG** — replaces Google Play Services
 2. **LSPosed** — advanced Xposed module framework (Zygisk version)
-3. **Open WebView** — makes third-party WebView switching permanent across reboots
+3. **Open WebView v2.5.2** — the Magisk module that handles both system WebView installation and the framework patch that unlocks WebView switching
+   * **Download:** [open-webview.zip](https://github.com/Magisk-Modules-Alt-Repo/open_webview/releases/download/v2.5.2/open-webview.zip)
+   * When the installer runs during flashing it presents a numbered selection menu navigated with the volume keys. **Select Vanadium** — built and maintained by the GrapheneOS project, the most security-hardened Android OS in existence. Vanadium applies GrapheneOS's full suite of exploit mitigations and hardened compiler flags. Selecting it installs Vanadium directly into the system partition via Magisk so it is always present as a selectable WebView regardless of device.
+   * **Flash this even if you plan to use AOSmium.** The module does two things: (1) installs your chosen WebView as a system-level app, and (2) patches the Android framework to unlock the WebView implementation selector — without this patch, AOSmium may not appear in Developer Options on certain devices even when installed correctly. Full instructions in Step 7.
 
 Reboot after flashing all three.
 
@@ -247,44 +257,158 @@ Noogle microG is a Magisk module that installs a clean, privacy-respecting repla
 
 ---
 
-## Step 7: Change System WebView to AOSmium
+## Step 7: Install AOSmium as System WebView via Magisk (Open WebView Backup Method Included)
 
 ### What is the System WebView?
 
-The **Android System WebView** is a browser engine embedded into the Android OS itself. It is not just for your browser — it is used by hundreds of apps (Facebook, Amazon, Spotify, Slack, CNN apps, microG sign-in pages, email apps, and countless others) any time they need to display web content within the app. By default this is Google's WebView, which phones home to Google for every piece of web content any app renders.
+The **Android System WebView** is a browser engine baked into Android itself. It is not a browser you open — it is the rendering engine used internally by hundreds of apps whenever they display web content: Facebook news feeds, Amazon product pages, Spotify artist profiles, microG sign-in screens, news apps, email clients, and countless others. By default this engine is Google's own WebView, which phones home to Google on every render. Replacing it means every one of those apps stops feeding Google's data pipeline.
 
-**AOSmium** is the WebView built by the [AXP.OS Project](https://axpos.org/). It is a Chromium-based fork of Mulch (by Divested Computing Group), hardened with Vanadium's (GrapheneOS) security patches, with Google services and anti-features minimized. Replacing the system WebView with AOSmium means that **every single app** on your phone that renders web content does so through a privacy-hardened, Google-free engine — not just your browser.
+**AOSmium** (built by the [AXP.OS Project](https://axpos.org/)) is a Chromium-based WebView forked from Mulch (Divested Computing Group) and hardened with Vanadium's (GrapheneOS) security patches throughout. It is the primary WebView target for DresOS. **Vanadium** (built by GrapheneOS) is the backup — equally hardened, directly from the most security-focused Android OS project in the world.
 
-**AOSmium is the System WebView only.** Your primary browser is **DuckDuckGo Privacy Browser** (installed in Step 4). Keep DuckDuckGo's **App Tracking Protection feature turned OFF** — that feature uses the Android VPN slot, which iVizblePro (your full privacy engine, covered in Part 2) requires exclusively. The DuckDuckGo browser itself works perfectly without that feature enabled — iVizblePro already handles all traffic-level privacy for every app system-wide.
+**Your everyday browser is DuckDuckGo Privacy Browser, not AOSmium or Vanadium.** Both AOSmium and Vanadium run invisibly as the system's web rendering engine. DuckDuckGo's App Tracking Protection **can be fully enabled** — InviZible Pro runs in **proxy + root mode** and does not touch the Android VPN slot at all. Full details in Part 2.
 
-### Installation
+---
 
-**Method 1 — Via AXP.OS F-Droid Repo (Recommended — auto-updates):**
+### Primary Method — Convert AOSmium APK into a Magisk Module (Flash via Magisk)
 
-1. Open **F-Droid** → **Settings** → **Repositories** → tap the **+** button.
-2. Add the AXP.OS repo URL from [axpos.org/F-Droid](https://axpos.org/F-Droid).
-3. Update F-Droid repo list.
-4. Search for **AOSmium** → install it.
+This method packages the AOSmium APK into a proper Magisk module ZIP so Magisk installs it directly into the system partition — identical to how Open WebView installs Vanadium. A system-partition install guarantees AOSmium always appears in the Developer Options WebView selector.
 
-**Method 2 — Manual APK:**
+#### What You Need on Your PC
 
-1. Go to [codeberg.org/AXP-OS/app_aosmium/releases](https://codeberg.org/AXP-OS/app_aosmium/releases).
-2. Download the latest release APK for your architecture (arm64 for most modern devices).
-3. Install via **SAI** (Split APK Installer) — the FOSS package installer you installed in Step 4.
+* A PC running Linux, macOS, or Windows (WSL works on Windows)
+* `git`, `bash`, and standard shell tools
+* The AOSmium APK for your device architecture (arm64 for most modern phones)
 
-### Activating AOSmium as System WebView
+#### Step-by-Step: Build the AOSmium Magisk Module
 
-1. Go to **Settings → System → Developer Options**.
-   * (If Developer Options is not visible: Settings → About phone → tap Build number 7 times.)
-2. Scroll to **WebView implementation** → tap it → select **AOSmium**.
-3. Reboot.
+**1. Download the AOSmium APK**
 
-**If AOSmium does not appear in the WebView list:**
+Go to [codeberg.org/AXP-OS/app_aosmium/releases](https://codeberg.org/AXP-OS/app_aosmium/releases) and download the latest APK matching your device architecture — `arm64` for virtually all phones made after 2016.
 
-* The **Open WebView** Magisk module (installed in Step 5) should resolve this automatically by unlocking the WebView selection system.
-* If it still does not appear, search for your specific device and Android version with the query `[model] change system webview third party` on XDA.
+Transfer the APK to your PC and rename it to `aosmium.apk` for clarity.
 
-**Test it:** Open Aurora Store or any news app — web content rendered inside apps should now have tracking and ad elements blocked at the WebView level.
+**2. Clone the Open WebView module source**
+
+```bash
+git clone https://github.com/Magisk-Modules-Alt-Repo/open_webview.git
+cd open_webview
+```
+
+**3. Understand the module structure**
+
+The Open WebView module packages a WebView APK into a Magisk-compatible ZIP by placing it at the correct system path and writing the metadata Magisk needs. You are going to create the same structure manually for AOSmium, which gives you full control without modifying the upstream scripts.
+
+**4. Create the AOSmium module directory structure**
+
+```bash
+mkdir -p aosmium-webview-module/META-INF/com/google/android
+mkdir -p aosmium-webview-module/system/app/AOSmium
+```
+
+**5. Copy the AOSmium APK into the module**
+
+```bash
+cp aosmium.apk aosmium-webview-module/system/app/AOSmium/AOSmium.apk
+```
+
+**6. Create `META-INF/com/google/android/update-binary`**
+
+This is the shell script Magisk runs during installation:
+
+```bash
+cat > aosmium-webview-module/META-INF/com/google/android/update-binary << 'EOF'
+#!/sbin/sh
+SKIPUNZIP=1
+unzip -o "$ZIPFILE" 'system/*' -d "$MODPATH"
+set_perm_recursive "$MODPATH/system/app/AOSmium" root root 0644 0644
+EOF
+```
+
+**7. Create `META-INF/com/google/android/updater-script`**
+
+```bash
+echo "#MAGISK" > aosmium-webview-module/META-INF/com/google/android/updater-script
+```
+
+**8. Create `module.prop`**
+
+```bash
+cat > aosmium-webview-module/module.prop << 'EOF'
+id=aosmium-webview
+name=AOSmium WebView (DresOS)
+version=v1.0
+versionCode=1
+author=DresOS
+description=Installs AOSmium as a system-level WebView provider. Hardened Chromium fork by AXP.OS using GrapheneOS/Vanadium security patches. Select AOSmium in Developer Options > WebView implementation after reboot.
+minMagisk=20400
+EOF
+```
+
+**9. Zip the module into a flashable archive**
+
+```bash
+cd aosmium-webview-module
+zip -r ../AOSmium-WebView-Magisk.zip .
+cd ..
+```
+
+**10. Transfer the ZIP to your phone**
+
+```bash
+adb push AOSmium-WebView-Magisk.zip /sdcard/Download/
+```
+
+**11. Flash via Magisk**
+
+* Open **Magisk app** → **Modules** → **Install from storage**
+* Navigate to `/sdcard/Download/AOSmium-WebView-Magisk.zip`
+* Tap it → swipe to install → reboot
+
+**12. Activate AOSmium as System WebView**
+
+After rebooting:
+
+1. Go to **Settings → System → Developer Options**
+   * (If not visible: Settings → About phone → tap Build number 7 times)
+2. Tap **WebView implementation**
+3. Select **AOSmium**
+4. Reboot
+
+**Test:** Open Aurora Store, a news app, or any app with embedded web content. Content should now render through AOSmium — tracker blocking and ad filtering active at the WebView layer across every app on the phone.
+
+---
+
+### Backup Method — Open WebView Module with Vanadium
+
+If AOSmium does not appear in the WebView selector after the above steps, or if it renders incorrectly on your specific device, **Vanadium is already installed** — it was placed in the system partition when you flashed the Open WebView module in Step 5 and selected Vanadium.
+
+**Vanadium** is the WebView and browser built by the [GrapheneOS project](https://grapheneos.org/). It is the most security-hardened WebView available for Android — the same WebView that ships as the default on GrapheneOS itself. It uses GrapheneOS's full exploit mitigation suite, hardened memory allocator, hardened compiler flags, and security-focused Chromium patches that go beyond what any other fork ships.
+
+**To activate Vanadium:**
+
+1. Go to **Settings → System → Developer Options → WebView implementation**
+2. Select **Vanadium**
+3. Reboot
+
+> **Why not Cromite or Mulch from the Open WebView module?** Cromite uses the same package name as the stock Android System WebView on some OEM builds, causing package conflict errors on affected devices. Mulch was maintained by DivestOS, which reached end-of-life in December 2024 and no longer receives security updates — do not use it. Vanadium is the actively maintained, most hardened, most correct backup choice.
+
+---
+
+### WebView Decision Flow
+
+```
+Flash Open WebView module → select Vanadium during install
+    ↓
+Build AOSmium Magisk module ZIP → flash via Magisk → reboot
+    ↓
+Developer Options → WebView implementation
+    ↓
+Does AOSmium appear?
+    YES → select AOSmium → reboot → done ✓
+    NO  → select Vanadium (already installed) → reboot → done ✓
+```
+
+Either outcome gives you a privacy-hardened, Google-free system WebView. AOSmium is the primary target; Vanadium is the guaranteed fallback.
 
 ---
 
@@ -365,7 +489,72 @@ Open **SD Maid SE** → run **Full Scan** + **CorpseFinder** → delete every Go
 
 ---
 
-## Step 10: Replace System File Manager, Package Installer & Download Manager
+## Step 10: Install AFWall+ — Root-Level Firewall
+
+**Download:** F-Droid — [dev.ukanth.ufirewall](https://f-droid.org/packages/dev.ukanth.ufirewall/)
+
+AFWall+ (Android Firewall+) is a root-level firewall that uses **iptables** — the same Linux kernel-level packet filtering used in professional firewalls and servers. Unlike app-based firewalls that operate through the Android VPN slot, AFWall+ works at the kernel level, meaning it intercepts and controls network traffic before any app can touch it. No VPN slot is used. No app can bypass it. It runs silently in the background and survives reboots via Magisk root.
+
+This is your system-wide network policy layer. InviZible Pro (covered in Part 2) handles routing your traffic through Tor/I2P/DNSCrypt via proxy. AFWall+ handles which apps are permitted to reach the network at all — including blocking apps that would try to bypass the proxy entirely.
+
+### Why AFWall+ Instead of InviZible Pro's Internal Firewall
+
+InviZible Pro is configured in **proxy mode** (not VPN mode) so the Android VPN slot remains free for DuckDuckGo App Tracking Protection. In proxy mode, InviZible Pro cannot enforce firewall rules on apps that ignore or bypass the system proxy — some apps do exactly this. AFWall+ operates at a level those apps cannot reach: the kernel's iptables chains, which sit below the entire Android app layer.
+
+### Setup
+
+1. Install AFWall+ from F-Droid.
+2. Open AFWall+ — it will request root via Magisk. Grant it permanently.
+3. The main screen shows every installed app as a row with toggle switches for:
+   * **WiFi** (left column) — allow/block on Wi-Fi networks
+   * **Data** (middle column) — allow/block on mobile data
+   * **VPN/Roaming** (right column, if shown) — allow/block on VPN or roaming
+4. **Set the default policy first:**
+   * Tap the **≡ menu → Set Default Policy → Deny (White List)**
+   * This means **all apps are blocked by default** — you explicitly whitelist only what needs internet. This is the most secure posture.
+
+### Recommended Rules
+
+Enable internet for these apps (tap their toggles to green for Wi-Fi and Data):
+
+| App | Allow | Notes |
+|---|---|---|
+| DuckDuckGo | ✅ WiFi + Data | Your browser — needs full access |
+| InviZible Pro | ✅ WiFi + Data | Proxy engine — must reach Tor/I2P/DNS servers |
+| Tuta Mail | ✅ WiFi + Data | Email push notifications |
+| F-Droid | ✅ WiFi only | App updates — Wi-Fi only to avoid data leaks |
+| Aurora Store | ✅ WiFi only | App updates — Wi-Fi only |
+| Arcane Chat | ✅ WiFi + Data | Messaging — needs constant connectivity |
+| OONI Probe | ✅ WiFi + Data | Network tests |
+| Hypatia | ✅ WiFi only | Signature updates only |
+| microG (com.google.android.gms) | ✅ WiFi + Data | If using microG for push notifications |
+| Fossify Phone | ✅ Data | Calls over mobile data |
+| Metrolist | ✅ WiFi + Data | Music streaming |
+| RedReader | ✅ WiFi + Data | Reddit client |
+
+Block everything else — games, offline tools, system apps that have no reason to phone home, and any remaining Google service remnants.
+
+### Advanced: Force Apps Through InviZible Pro Proxy via iptables
+
+On rooted devices, AFWall+ can redirect traffic at the kernel level to ensure apps route through InviZible Pro's local Tor proxy even if they do not respect Android's system proxy setting. Go to:
+
+**AFWall+ → ≡ menu → Custom Scripts → Startup Script**
+
+Add the following rule to redirect all outgoing HTTP/HTTPS traffic through InviZible Pro's Tor HTTP proxy on port 8118 (replace `UID` with the app's Android user ID from Settings → Apps → [App] → App info):
+
+```bash
+iptables -t nat -A OUTPUT -p tcp -m owner --uid-owner UID -j DNAT --to-destination 127.0.0.1:8118
+```
+
+> For most users, the combination of InviZible Pro system proxy + DuckDuckGo App Tracking Protection + AFWall+ default-deny whitelist is sufficient without custom iptables rules. The custom script approach is for advanced users who want guaranteed per-app Tor enforcement regardless of system proxy compliance.
+
+### Logs
+
+AFWall+ → **≡ menu → Logs** shows you every blocked connection attempt in real time — which app tried to reach which IP, when, and whether it was blocked. This is an excellent way to spot apps trying to phone home that you did not expect.
+
+---
+
+## Step 11: Replace System File Manager, Package Installer & Download Manager
 
 A truly de-Googled phone requires replacing not just apps but the system-level utilities Google embeds for file management, app installation, and downloading. Here is the full FOSS replacement stack — zero Google components:
 
@@ -411,7 +600,7 @@ Set SAI as the default app opener for `.apk` files in Settings → Apps → Defa
 
 Install from F-Droid: `https://f-droid.org/packages/com.tachibana.downloader/`
 
-After installing, go to **Settings → Apps → Default apps → Opening links** and make sure Download Navi handles download intents. In **AOSmium browser**, go to Settings and set Download Navi as the external download manager if prompted.
+After installing, go to **Settings → Apps → Default apps → Opening links** and make sure Download Navi handles download intents. In **DuckDuckGo Privacy Browser**, go to Settings and set Download Navi as the external download manager if prompted.
 
 > **Why This Matters:** Google's Download Manager is a hidden background service that most users never interact with directly — but it silently handles every file download on the phone and can report metadata to Google. Download Navi replaces it entirely with zero tracking.
 
@@ -426,7 +615,7 @@ Together, these two replace the Google Play Store ecosystem completely.
 
 ---
 
-## Step 11: Final Setup & Defaults
+## Step 12: Final Setup & Defaults
 
 Go to **Settings → Apps → Default apps** and set:
 
@@ -444,7 +633,7 @@ Go to **Settings → Apps → Default apps** and set:
 
 **Aurora Store:** Open it → Settings → set **Anonymous** login mode. Do not log in with any Google account.
 
-**DuckDuckGo Privacy Browser:** Open it and complete initial setup. **Do NOT enable App Tracking Protection** — that feature uses the Android VPN slot, which iVizblePro requires exclusively. The browser works perfectly without it; iVizblePro already handles all traffic-level privacy for the entire device system-wide.
+**DuckDuckGo Privacy Browser:** Open it and complete initial setup. **App Tracking Protection can and should be enabled** — InviZible Pro runs in proxy + root mode and does not occupy the Android VPN slot, so there is no conflict. Enable it in DuckDuckGo → Settings → App Tracking Protection → Enable. Android will prompt you to allow a VPN connection for DuckDuckGo — confirm it. This gives you both InviZible Pro's proxy-level Tor/DNSCrypt routing AND DuckDuckGo's in-app tracker blocking running simultaneously.
 
 **LSPosed modules (optional hardening):**
 * **Hide My Applist** — prevents apps from detecting other apps installed on your phone
@@ -452,16 +641,17 @@ Go to **Settings → Apps → Default apps** and set:
 
 ---
 
-## Step 12: Test & Backup
+## Step 13: Test & Backup
 
 * Make and receive a test phone call via **Fossify Phone**
 * Send and receive a test SMS via **Fossify Messages**
 * Send and receive a test email via **Tuta Mail**
-* Open a website in **DuckDuckGo Privacy Browser** — confirm it is working and App Tracking Protection is off
+* Open a website in **DuckDuckGo Privacy Browser** — confirm it is working and App Tracking Protection shows as active
+* Open **AFWall+** — confirm firewall rules are applied and the app shows iptables as active
 * Open **Aurora Store** — verify apps load and anonymous mode works
 * Open an APK via **SAI** — confirm it installs correctly
 * Download a file in **DuckDuckGo** — confirm it opens in **Download Navi**
-* Everything working through microG and AOSmium WebView as expected
+* Everything working through microG and the new system WebView as expected
 
 **TWRP Backup (if not done already):** Boot to TWRP → Backup → select Boot + System + Data + Vendor → swipe to back up. This is your emergency restore point. Store the backup folder in a safe location off-device.
 
@@ -477,11 +667,11 @@ Go to **Settings → Apps → Default apps** and set:
 
 This repository provides a guide to enhancing operational security (OPSEC) and cybersecurity on Android devices. It focuses on protecting against phishing, malware, IP tracking, data mining, device fingerprinting, censorship detection, and network surveillance — using free, open-source tools only.
 
-This method creates a layered privacy setup: encrypted DNS at the OS level, Tor + I2P routing + DNSCrypt + firewall at the network level (all via a single app), and location spoofing at the sensor level. The result is an extremely hardened device suitable for privacy-conscious individuals who previously relied on paid VPNs, Cloudflare DNS, or Google DNS.
+This method creates a layered privacy setup: encrypted DNS at the OS level (Quad9 DNS-over-TLS), Tor routing + DNSCrypt + I2P at the network level via InviZible Pro in proxy + root mode (which leaves the VPN slot free), a root-level iptables firewall via AFWall+ enforcing per-app access control at the kernel level, app-layer tracker blocking via DuckDuckGo App Tracking Protection in the VPN slot, and location spoofing at the sensor level via Fake Traveler. The result is an extremely hardened device with multiple independent, non-conflicting privacy layers operating simultaneously.
 
 **Compatibility:** Android 10 or later. The degoogling steps in Part 1 are recommended but most OPSEC steps work on stock Android too.
 
-> **VPN Slot Note:** Android only allows one VPN-mode app to run at a time. **iVizblePro** (InviZible Pro) requires exclusive use of the Android VPN slot to provide Tor + I2P + DNSCrypt + Firewall. **DuckDuckGo's App Tracking Protection feature** also uses the VPN slot — keep it turned OFF. The DuckDuckGo browser itself (without App Tracking Protection) works perfectly alongside iVizblePro, as iVizblePro already handles all traffic-level privacy for every app on the device.
+> **Architecture Note:** InviZible Pro runs in **proxy + root mode** — not VPN mode. It exposes Tor as an HTTP proxy on `127.0.0.1:8118`, and uses iptables (via Magisk root) to redirect all DNS to DNSCrypt at the kernel level. The Android system proxy setting routes HTTP/HTTPS traffic from all cooperating apps through Tor. The **Android VPN slot remains completely free**, meaning DuckDuckGo's **App Tracking Protection can and should be fully enabled** to run alongside InviZible Pro. **AFWall+** adds a second independent kernel-level firewall layer — per-app access control and mobile data proxy redirect — that operates entirely outside of both the proxy and VPN systems.
 
 ---
 
@@ -498,7 +688,7 @@ This is the baseline privacy layer — applied at the OS level, before any apps 
 
 **What this does:** Quad9 DNS blocks malicious domains, protects against malware and phishing at the DNS resolution level, and does not log or collect user data — unlike Google DNS (8.8.8.8) or Cloudflare DNS (1.1.1.1) which both log queries. Quad9 is operated by a Swiss nonprofit. All DNS queries are now encrypted via DNS-over-TLS and filtered against Quad9's threat intelligence database.
 
-> Note: Once iVizblePro is running in VPN mode (Step 2), it takes over DNS resolution entirely via DNSCrypt, which is even more private than system-level DNS-over-TLS. The Quad9 setting here serves as a fallback for when iVizblePro is not active.
+> Note: Once InviZible Pro is running in proxy mode (Step 2), it takes over DNS resolution via DNSCrypt, which is more private than system-level DNS-over-TLS. The Quad9 setting here serves as a fallback for when InviZible Pro is not active.
 
 ### MAC Address Randomization
 
@@ -519,150 +709,255 @@ This is the baseline privacy layer — applied at the OS level, before any apps 
 
 ---
 
-## OPSEC Step 2: Set Up iVizblePro — Your All-in-One Privacy Engine
+## OPSEC Step 2: Set Up InviZible Pro in Proxy + Root Mode
 
-**iVizblePro** (InviZible Pro) is the centerpiece of the DresOS OPSEC stack. It is a single application that combines **Tor**, **I2P**, **DNSCrypt**, and a **built-in firewall** — all operating together through the Android VPN interface. It replaces what would otherwise require four separate apps (Orbot for Tor, a separate I2P client, a separate DNSCrypt resolver, and a separate firewall app), and it does this without root requirements (though root is supported for enhanced firewall control on rooted devices like yours).
+**InviZible Pro** (the app listed in stores as **iVizblePro**) is the network privacy engine of the DresOS stack. It combines **Tor**, **I2P**, and **DNSCrypt** into a single application. In this setup it runs in **proxy mode with root**, which means:
 
-**Download:** `https://f-droid.org/repo/pan.alexander.tordnscrypt.stable_26603.apk`
+* It runs as a local proxy server on your device — the **Android VPN slot is not used at all**
+* DuckDuckGo's **App Tracking Protection** can be fully enabled alongside it with zero conflict
+* Magisk root lets InviZible Pro redirect DNS at the iptables level without any VPN interface
+* Android's built-in system proxy setting routes your traffic through InviZible Pro's Tor HTTP proxy — your apparent IP address to every website and service becomes a Tor exit node IP, not your real IP
 
-Or search **InviZible Pro** in F-Droid directly.
+**Download:** [pan.alexander.tordnscrypt.stable_26603.apk](https://f-droid.org/repo/pan.alexander.tordnscrypt.stable_26603.apk)
+Or search **InviZible Pro** in F-Droid.
+
+---
 
 ### What Each Component Does
 
 **DNSCrypt:**
-DNS (Domain Name System) is the phone book of the internet — it converts domain names (like `example.com`) into IP addresses. Normally this happens in plain text, letting your ISP, network operator, and any intermediary see every domain you visit. DNSCrypt encrypts and authenticates these DNS queries so that:
-* Your ISP cannot see what domains you are looking up
-* Your queries cannot be tampered with or redirected (DNS spoofing / MITM attacks)
-* You can use a privacy-respecting DNS resolver of your choice
+DNS converts domain names like `example.com` into IP addresses. By default this happens in plain text — your ISP, network operator, and any middlebox on the network can see every domain you visit, even when page content is HTTPS-encrypted. DNSCrypt encrypts and cryptographically authenticates every DNS query. In proxy + root mode, InviZible Pro uses iptables to redirect all DNS traffic (UDP and TCP port 53) to its local DNSCrypt listener at port 5354 — no app can bypass it, no VPN is needed.
 
 **Tor (The Onion Router):**
-Tor routes your internet traffic through a network of volunteer-operated relays (typically three: entry guard, middle relay, exit node). Each relay only knows the previous and next hop — no single relay knows both who you are and what you are accessing. This provides:
-* Strong anonymity against network-level surveillance
-* Bypass of censorship and geo-blocks
-* Protection against your ISP logging your traffic
-* Access to `.onion` hidden services
+Tor routes your traffic through three volunteer-operated relays. Each relay only knows the immediately previous and next hop — no single relay can identify both your identity and your destination. InviZible Pro exposes Tor as a local HTTP proxy on port `8118`. When you set Android's system proxy to `127.0.0.1:8118`, all apps that respect the system proxy route their traffic through Tor. From the perspective of every website and service you connect to, your IP address is the Tor exit node's IP — a relay in another country, different from your real IP, rotating every 10 minutes.
 
 **I2P (Invisible Internet Project):**
-I2P is a separate anonymizing network layer, distinct from Tor, that uses a garlic routing protocol (bundling multiple messages together). It is particularly suited for:
-* Anonymous peer-to-peer communication
-* Accessing I2P-specific hidden services (eepsites)
-* Additional anonymity layer when combined with Tor
-* Resistant to timing correlation attacks in different ways than Tor
+A separate anonymising network using garlic routing (bundles multiple encrypted messages per hop). Independent of Tor, runs on its own relay network. Suited for accessing `.i2p` hidden services (eepsites) and provides a different anonymity model from Tor that resists certain traffic correlation attacks differently. InviZible Pro exposes the I2P HTTP proxy locally on port `4444`.
 
-**Built-in Firewall (iptables / nftables):**
-On rooted devices, iVizblePro can control iptables/nftables directly to:
-* Block specific apps from accessing the internet entirely
-* Force specific apps to route only through Tor or I2P
-* Block all traffic that is not routed through the privacy tunnels (kill switch behavior)
-* Prevent data leaks if Tor or DNSCrypt temporarily drops
-
-### Full Setup: VPN Mode with Tor + I2P + DNSCrypt + Firewall
-
-Follow these steps exactly, in order:
-
-#### Phase 1: Initial Configuration
-
-1. Install iVizblePro via F-Droid using the link above.
-2. Open iVizblePro.
-3. On first launch, allow any permission prompts (notifications, etc.).
-4. **Do not tap Start yet.** Configure everything first.
-
-#### Phase 2: Configure DNSCrypt
-
-1. Tap the **DNSCrypt** tab at the bottom.
-2. Tap the **settings gear** icon for DNSCrypt.
-3. Under **Servers**, tap **DNS servers** → review the list. The app comes with a curated list of privacy-respecting resolvers. Good defaults include:
-   * `quad9-dnscrypt-ip4-filter-pri` (Quad9 with malware filtering)
-   * `cloudflare` (fast, but logs) — **avoid this one**
-   * `mullvad-adblock-doh` or any resolver marked with `nolog nofilter`
-4. Select at least one `nolog` resolver. Multiple can be active for redundancy.
-5. Under **DNSCrypt settings**:
-   * Enable **DNSSEC** (cryptographic validation of DNS responses)
-   * Enable **Block IPv6** if you do not use IPv6 (reduces attack surface)
-   * Enable **Require DNSSEC** for all queries
-   * Enable **Require no logging** — this filters the server list to only non-logging resolvers
-   * Enable **Require no filtering** — unless you want malware filtering (Quad9 has this built in)
-6. Go back to the DNSCrypt main tab.
-
-#### Phase 3: Configure Tor
-
-1. Tap the **Tor** tab at the bottom.
-2. Tap the **settings gear** icon for Tor.
-3. Under **Tor settings**:
-   * Enable **Isolate destination addresses** — this makes each destination use a separate Tor circuit, preventing correlation between your visits to different sites
-   * Enable **Isolate destination ports** — further isolation by port
-   * Enable **Isolate SOCKS auth** if present
-4. Under **Bridges** (optional but recommended if you are in a censored region):
-   * Enable **Use bridges**
-   * Select **obfs4** as the bridge type (obfuscates Tor traffic to look like normal HTTPS traffic, defeating deep packet inspection)
-   * Tap **Request new bridges** or enter manual bridges from [bridges.torproject.org](https://bridges.torproject.org/)
-5. Leave **Entry/Guard nodes** and **Exit nodes** on default unless you have specific requirements.
-6. Go back to the Tor main tab.
-
-#### Phase 4: Configure I2P
-
-1. Tap the **I2P** tab at the bottom.
-2. Tap the **settings gear** icon for I2P.
-3. Under **I2P settings**:
-   * Leave defaults for most users
-   * If you want to use I2P hidden services (eepsites) specifically, ensure the I2P HTTP proxy is enabled on port `4444`
-   * Enable **Tunnel bandwidth** management if your device is battery-constrained
-4. I2P requires an initial bootstrap period (building its routing table) of approximately 10–20 minutes on first run — this is normal.
-5. Go back to the I2P main tab.
-
-#### Phase 5: Configure the Firewall (Root Mode)
-
-Since your device is rooted with Magisk, iVizblePro can use root for enhanced firewall control:
-
-1. Tap the **≡ hamburger menu** (top left) → **Settings** → **Common settings**.
-2. Under **Root settings**:
-   * Enable **Run modules with root** — this enables the enhanced iptables firewall
-   * Enable **Fix TTL for tethering** (useful if you use hotspot)
-3. Go to **Firewall** tab (in the main navigation):
-   * You will see a list of all installed apps
-   * Apps with a **green checkmark** are allowed through the tunnel
-   * Apps with a **red X** are completely blocked from the internet
-   * Apps with a **Tor icon** are forced to route exclusively through Tor
-4. Recommended firewall rules:
-   * **Block** all apps that do not need internet (games, offline tools, etc.)
-   * **Force Tor** for your browser (AOSmium), Tuta Mail, Arcane Chat, OONI Probe
-   * **Allow direct** (through DNSCrypt only, not Tor) for apps that need fast connections but not full anonymity (Aurora Store updates, Hypatia signature updates)
-   * **Block completely** any Google services remnants, advertising frameworks, or telemetry services
-
-#### Phase 6: Enable VPN Mode and Start All Services
-
-1. Tap the **≡ hamburger menu** → **Settings** → **Common settings**.
-2. Under **VPN settings**:
-   * Enable **VPN mode** — this is what routes all phone traffic through iVizblePro's stack
-   * Enable **Start on boot** — ensures protection is always active
-   * Enable **Block internet when VPN is down** (kill switch) — prevents any traffic from leaking if iVizblePro restarts
-3. Go back to the main screen.
-4. On the main **Fast Start** screen (or the individual tabs), start services in this order:
-   a. **DNSCrypt** — tap Start. Wait for "Running" status.
-   b. **Tor** — tap Start. Wait for "Running" status (bootstrapping to 100% takes 30–60 seconds).
-   c. **I2P** — tap Start. Wait for initial bootstrap (may take 10–20 minutes on first run).
-5. Android will prompt you to confirm the VPN connection — tap **OK** / **Connect**.
-6. You will see a key icon in your notification bar — iVizblePro's VPN tunnel is now active.
-
-#### Phase 7: Verify Everything Is Working
-
-1. In iVizblePro, check the main screen — all three services (DNSCrypt, Tor, I2P) should show green/running.
-2. Open **AOSmium** browser.
-3. Visit `https://check.torproject.org` — it should confirm **"Congratulations. This browser is configured to use Tor."**
-4. Visit `https://dnsleaktest.com` — run the extended test. Your DNS should resolve through your selected DNSCrypt resolver, **not** your ISP.
-5. The key icon should remain in your notification bar at all times.
-
-#### Ongoing Usage Tips
-
-* iVizblePro starts automatically on boot (if configured above) and the kill switch prevents any traffic from bypassing it.
-* If Tor is slow (common during high-load periods), you can temporarily disable I2P to free up bandwidth for Tor — or vice versa if you are accessing I2P services specifically.
-* Check the **Logs** tab regularly to see what your firewall is blocking and what circuits Tor is using.
-* Update iVizblePro via F-Droid to keep Tor, I2P, and DNSCrypt binaries current.
-* For maximum anonymity, do not log into any personal accounts (Google, Facebook, etc.) while Tor is active — the anonymity Tor provides can be defeated by account-level identification.
+**Root Mode / iptables DNS Redirection:**
+With Magisk root, InviZible Pro writes iptables rules at the kernel level to redirect all outbound DNS queries (port 53 → port 5354) to DNSCrypt — regardless of which app generates them. No VPN slot needed. This runs below the application layer: it cannot be bypassed by any app.
 
 ---
 
-## OPSEC Step 3: Set Up Secure Email — Tuta + Duck Addresses
+### Full Setup: Proxy + Root Mode with Tor + I2P + DNSCrypt
+
+Follow these steps in order. Do not start any service until Phase 6.
+
+#### Phase 1: Install and Open
+
+1. Install InviZible Pro via F-Droid or the direct APK link above (install with SAI).
+2. Open **InviZible Pro**.
+3. Allow notification permissions when prompted.
+4. Do not tap Start on anything yet.
+
+#### Phase 2: Set Connection Mode to Proxy + Enable Root
+
+1. Tap the **≡ hamburger menu** (top-left corner) → **Settings** → **Common settings**.
+2. Find **Run mode** or **Connection method** → select **Proxy mode** (not VPN mode, not Root-only mode).
+3. Under **Root settings** in the same screen:
+   * Enable **Run modules with root** — allows InviZible Pro to use your Magisk root for iptables and more reliable process control
+   * Enable **Redirect DNS to DNSCrypt** — this is the iptables rule that forces all port-53 DNS from every app through DNSCrypt on port 5354
+   * Enable **Fix TTL for tethering** — useful if you share your connection via hotspot
+4. Under **Proxy settings** (still in Common settings):
+   * Confirm **SOCKS5 proxy port:** `9050` (Tor SOCKS5)
+   * Confirm **HTTP proxy port:** `8118` (Tor HTTP CONNECT proxy — this is what you will enter into Android's Wi-Fi proxy setting)
+5. Enable **Start on boot** — restores all services and iptables rules automatically after every reboot.
+6. Go back to the main screen.
+
+#### Phase 3: Configure DNSCrypt
+
+1. Tap the **DNSCrypt** tab.
+2. Tap the **settings gear** icon.
+3. Under **DNS servers**, select resolvers that meet all of these criteria:
+   * `nolog` — server does not log your queries
+   * `nodump` — server does not share data with third parties
+   * `dnssec` — server validates DNS responses cryptographically
+   * **Recommended:** `quad9-dnscrypt-ip4-filter-pri` (Quad9, Swiss non-profit, malware domain blocking), `mullvad-adblock` (Mullvad VPN's resolver, strict no-log, Swedish jurisdiction)
+   * **Always avoid:** Any `cloudflare` entry (logs queries), any Google resolver
+4. Select 2–3 qualifying servers for redundancy.
+5. Under **DNSCrypt settings**, enable:
+   * **DNSSEC** — cryptographic validation of all DNS responses; rejects spoofed or tampered answers
+   * **Require DNSSEC** — filters server list to DNSSEC-supporting resolvers only
+   * **Require no logging** — filters list to strictly non-logging resolvers only
+   * **Block IPv6** — reduces attack surface if you do not actively use IPv6 services
+   * **Bootstrap resolvers** — allows initial encrypted resolver list fetch; only contacts a plain resolver once for bootstrapping, then stays encrypted
+6. Go back.
+
+#### Phase 4: Configure Tor
+
+1. Tap the **Tor** tab.
+2. Tap the **settings gear** icon.
+3. Under **Tor settings**, enable:
+   * **Isolate destination addresses** — forces each destination domain to use a separate Tor circuit; prevents one service from correlating your traffic to another
+   * **Isolate destination ports** — additional circuit isolation per port number
+   * **Isolate SOCKS auth** — further isolation if apps use SOCKS5 authentication
+4. Note the HTTP proxy port is `8118` (used in Phase 7 below).
+5. Under **Bridges** — enable this if you are in a country where Tor is blocked, or for extra obfuscation on any network:
+   * Enable **Use bridges**
+   * Select bridge type: **obfs4** — disguises Tor traffic as ordinary HTTPS, bypasses deep packet inspection (DPI)
+   * Tap **Request new bridges** (fetches fresh bridges from Tor Project) or enter bridges manually from [bridges.torproject.org](https://bridges.torproject.org/)
+6. Go back.
+
+#### Phase 5: Configure I2P
+
+1. Tap the **I2P** tab.
+2. Tap the **settings gear** icon.
+3. For most users, default settings are correct. If you plan to access I2P eepsites, confirm the I2P HTTP proxy is enabled on port `4444`.
+4. Enable **Tunnel bandwidth** limiting if your device is battery-sensitive.
+5. Go back.
+6. Note: I2P takes 10–20 minutes to fully build its routing table on first run — this is expected behaviour, not an error.
+
+#### Phase 6: Start All Services (In Order)
+
+From the InviZible Pro main screen, start services in this exact order:
+
+1. **DNSCrypt** → tap **Start** → wait for status: **Running**
+2. **Tor** → tap **Start** → wait for bootstrap to reach **100%** (30–90 seconds)
+3. **I2P** → tap **Start** → bootstrap begins (10–20 min first run; much faster after that)
+
+InviZible Pro is now running. The iptables DNS redirect is active (all DNS → DNSCrypt). Your local Tor HTTP proxy is live at `127.0.0.1:8118`.
+
+#### Phase 7: Configure Android System Proxy for IP Spoofing via Tor
+
+This is how you route app traffic through InviZible Pro's Tor proxy using Android's built-in system proxy — **no VPN slot used**. Apps that respect the system proxy will have their HTTP/HTTPS traffic exit through a Tor exit node. Your real IP is not visible to any destination.
+
+**Repeat this for every Wi-Fi network you connect to:**
+
+1. **Settings → Network & Internet → Wi-Fi**
+2. Long-press your network name → **Modify network** (or tap the pencil icon)
+3. Expand **Advanced options**
+4. Under **Proxy** → select **Manual**
+5. Enter:
+   * **Proxy hostname:** `127.0.0.1`
+   * **Proxy port:** `8118`
+   * **Bypass proxy for:** `localhost,127.0.0.1`
+6. Tap **Save**
+
+> **Mobile data:** Android's system proxy setting is Wi-Fi only in standard UI. For cellular data, AFWall+ (OPSEC Step 3) with custom iptables rules can enforce routing at the kernel level. For most users, Wi-Fi proxy coverage is sufficient.
+
+#### Phase 8: Enable DuckDuckGo App Tracking Protection
+
+Now that the VPN slot is free:
+
+1. Open **DuckDuckGo Privacy Browser**
+2. Tap **≡ menu → Settings → App Tracking Protection → Enable**
+3. Android prompts to allow DuckDuckGo to create a VPN connection — tap **OK**
+4. DuckDuckGo App Tracking Protection is now running in the VPN slot, blocking trackers inside all other apps
+
+This gives you two independent protection layers running simultaneously:
+* **InviZible Pro** — handles network-level anonymity (Tor IP spoofing, DNSCrypt, I2P) via proxy + iptables
+* **DuckDuckGo App Tracking Protection** — handles app-layer tracker blocking via the VPN slot
+
+#### Phase 9: Verify Everything Is Working
+
+1. InviZible Pro main screen — all three services: **Running** (green)
+2. Open **DuckDuckGo Privacy Browser**
+3. Visit `https://check.torproject.org` → should confirm **"Congratulations. This browser is configured to use Tor."**
+4. Visit `https://dnsleaktest.com` → run Extended Test → DNS should resolve through your DNSCrypt server, not your ISP
+5. Visit `https://whatismyipaddress.com` → IP shown should be a Tor exit node IP, not your real IP or ISP IP
+6. All three checks passing = DNS encrypted, traffic anonymised through Tor, real IP hidden
+
+#### Ongoing Usage Tips
+
+* InviZible Pro restores services and iptables rules on every boot automatically.
+* If Tor is slow: stop I2P temporarily to free bandwidth for Tor circuits. Restart I2P when you need eepsites.
+* Check **InviZible Pro → Logs** tab to see active Tor circuits, DNSCrypt queries, and any errors.
+* Update InviZible Pro via F-Droid regularly — outdated Tor binaries can have known vulnerabilities.
+* Do not log into personal accounts (Google, Facebook, etc.) while routing through Tor — account-level identification defeats network-level anonymity.
+
+---
+
+## OPSEC Step 3: Set Up AFWall+ — Root-Level Kernel Firewall
+
+**AFWall+** (Android Firewall+) is a root-level firewall for Android that uses **iptables** — the Linux kernel's built-in packet filtering framework — to control exactly which apps can access the internet and on which interfaces. Unlike InviZible Pro's proxy (which apps must cooperate with) or DuckDuckGo's App Tracking Protection (which works at the VPN layer), AFWall+ operates at the kernel level: it is enforced before any app or VPN stack even sees the traffic. An app cannot circumvent it.
+
+**Download:** F-Droid — [dev.ukanth.ufirewall](https://f-droid.org/packages/dev.ukanth.ufirewall/) / [GitHub](https://github.com/ukanth/afwall)
+
+---
+
+### Why AFWall+ Is a Separate Layer From InviZible Pro
+
+InviZible Pro's internal firewall (when running in proxy + root mode) handles routing decisions — which traffic goes through Tor, which goes through I2P. AFWall+ handles **access control** — which apps are allowed to communicate at all, on which network interfaces (Wi-Fi, mobile data, VPN), and to which addresses. These are complementary, not redundant:
+
+* InviZible Pro routes and anonymises traffic
+* AFWall+ decides at the kernel level which apps are even allowed to generate network traffic in the first place
+
+Running both gives you defence-in-depth: even if InviZible Pro's proxy routing fails or an app bypasses the system proxy, AFWall+'s iptables rules are still enforced at the kernel.
+
+---
+
+### Setup and Configuration
+
+#### Install and Grant Root
+
+1. Install AFWall+ from F-Droid.
+2. Open AFWall+ → it will request root access via Magisk — grant it permanently.
+3. AFWall+ confirms it can control iptables.
+
+#### Enable the Firewall
+
+1. Tap the **≡ menu** (top-left) → **Preferences** → **Firewall rules**.
+2. Confirm **iptables** mode is selected (not ip6tables-only — enable both for full coverage).
+3. Go back to the main screen.
+4. Tap **Enable firewall** (the toggle at the top) → confirm.
+
+#### Configure Per-App Rules
+
+AFWall+ shows all installed apps with toggles for each interface:
+
+* **Wi-Fi** column — whether this app can use Wi-Fi
+* **Data** column — whether this app can use mobile/cellular data
+* **VPN** column — whether this app can use VPN tunnel traffic (relevant for DuckDuckGo App Tracking Protection)
+* **LAN** column — whether this app can access local network (optional column)
+
+**Recommended starting rules:**
+
+| App | Wi-Fi | Mobile Data | Notes |
+|---|---|---|---|
+| DuckDuckGo Privacy Browser | ✓ | ✓ | Primary browser, allow all |
+| InviZible Pro | ✓ | ✓ | Must have access to reach Tor network |
+| Tuta Mail | ✓ | ✓ | Email, allow all |
+| Arcane Chat | ✓ | ✓ | Messaging, allow all |
+| Aurora Store | ✓ | ✗ | Updates via Wi-Fi only to save data |
+| Hypatia | ✓ | ✗ | Signature updates via Wi-Fi only |
+| OONI Probe | ✓ | ✓ | Needs both for network testing |
+| F-Droid | ✓ | ✗ | Update repo via Wi-Fi only |
+| Fossify Phone | ✓ | ✓ | Calls use data |
+| Fossify Messages | ✓ | ✓ | MMS uses data |
+| Metrolist | ✓ | ✗ | Stream via Wi-Fi only |
+| Games / offline apps | ✗ | ✗ | Block all — no reason for internet access |
+| Any Google remnant | ✗ | ✗ | Block completely |
+
+#### Custom iptables Rules for Mobile Data Proxy Routing
+
+Android's system proxy setting only applies to Wi-Fi. On mobile data, apps bypass the system proxy. To enforce Tor proxy routing on mobile data as well, add these custom iptables rules in AFWall+:
+
+1. Tap **≡ menu → Custom rules**
+2. Add the following (routes HTTP and HTTPS from all apps through InviZible Pro's local Tor HTTP proxy on mobile data):
+
+```
+# Redirect HTTP traffic to InviZible Pro Tor proxy (mobile data)
+-A OUTPUT -p tcp --dport 80 -o rmnet+ -j REDIRECT --to-port 8118
+-A OUTPUT -p tcp --dport 443 -o rmnet+ -j REDIRECT --to-port 8118
+```
+
+> **Note:** `rmnet+` matches mobile data interfaces on most Android devices. On some devices this may be `rmnet_data+` — check your device's interface names in a terminal emulator if the rule does not apply.
+
+3. Save and apply.
+
+#### Enable Logging
+
+1. **≡ menu → Log → Enable log** — AFWall+ will log all blocked connection attempts.
+2. Check the log periodically — blocked entries reveal apps attempting to phone home, connect to ad networks, or bypass your privacy stack.
+
+#### Set a PIN Lock on AFWall+
+
+1. **≡ menu → Preferences → UI preferences → Password protection** → set a PIN.
+2. This prevents any app or accidental tap from disabling your firewall.
+
+---
+
+## OPSEC Step 4: Set Up Secure Email — Tuta + Duck Addresses
 
 This two-layer setup gives you the strongest available email privacy. Tuta Mail is your real, encrypted inbox. Duck Addresses are disposable forwarding aliases you hand out to every app, website, and service instead of your real address — so your actual Tuta inbox is never exposed.
 
@@ -725,7 +1020,7 @@ Your real address never appears anywhere outside of the DuckDuckGo Email Protect
 
 ---
 
-## OPSEC Step 4: Spoof Location with Fake Traveler
+## OPSEC Step 5: Spoof Location with Fake Traveler
 
 Physical location is one of the most sensitive data points your phone broadcasts constantly. Fake Traveler lets you replace your real GPS coordinates with any location in the world.
 
@@ -736,28 +1031,34 @@ Physical location is one of the most sensitive data points your phone broadcasts
 5. In **Developer Options** → scroll to **Select mock location app** → choose **Fake Traveler**.
 6. Your device's GPS will now report the fake location to all apps that request it.
 
-**What this does:** Spoofs your device's geolocation, preventing apps from determining your real position. This defeats location-based targeting, check-in tracking, and local services that attempt to correlate your physical movements with your online activity. Combined with iVizblePro's Tor routing (which hides your IP and therefore your approximate location from network observers), this gives you both network-level and sensor-level location protection.
+**What this does:** Spoofs your device's geolocation, preventing apps from determining your real position. Combined with InviZible Pro's Tor routing (which masks your IP address from network observers), this gives you both network-level and sensor-level location protection simultaneously.
 
 ---
 
-## OPSEC Step 5: Final Checks and Hardening Tips
+## OPSEC Step 6: Final Checks and Hardening Tips
 
-**iVizblePro / VPN conflicts:**
-* Ensure no other app is using the Android VPN slot simultaneously. Check Settings → Network → VPN — only iVizblePro should show as "Connected."
-* Allow iVizblePro background network access and disable any battery optimization that would kill it.
+**InviZible Pro / proxy setup:**
+* Confirm InviZible Pro is running (all three services green) and the Android system proxy is set to `127.0.0.1:8118` on your Wi-Fi network.
+* Allow InviZible Pro background network access and disable any battery optimization that would kill it (Settings → Battery → Battery optimization → InviZible Pro → Not optimized).
+* Allow background network and battery usage for Tuta Mail (for push notifications) the same way.
 
-**Background app management:**
-* Allow background network and battery usage for iVizblePro and Tuta Mail (for push notifications).
-* Check Settings → Battery → Battery optimization → find both apps → set to "Not optimized."
+**AFWall+ check:**
+* Open AFWall+ and confirm the default policy is **Deny (White List)** and only the apps you explicitly approved are green.
+* Check the Logs tab — you should see blocked connection attempts from apps you did not whitelist. This confirms it is working.
+
+**DuckDuckGo App Tracking Protection:**
+* Since InviZible Pro uses proxy mode and does not occupy the Android VPN slot, DuckDuckGo's App Tracking Protection **can and should be enabled**.
+* Open DuckDuckGo → ≡ menu → App Tracking Protection → Enable. Android will prompt you to confirm the VPN connection — this is DuckDuckGo using the VPN slot to monitor other apps' tracker traffic. Confirm it.
+* Both InviZible Pro (proxy mode) and DuckDuckGo App Tracking Protection will now run simultaneously without conflict.
 
 **Network preference:**
-* Use Wi-Fi over mobile data where possible — Tor performance is significantly better on Wi-Fi.
-* On public Wi-Fi, iVizblePro's kill switch ensures no traffic leaks even on untrusted networks.
+* Use Wi-Fi over mobile data where possible — Tor performance is significantly better on Wi-Fi, and the system proxy applies automatically to saved Wi-Fi networks.
+* On public Wi-Fi, AFWall+'s whitelist ensures no unexpected apps phone home even on untrusted networks.
 
 **Periodic maintenance:**
-* Run **Hypatia** (from the DresOS app suite) weekly to scan for malware.
+* Run **Hypatia** weekly to scan for malware.
 * Run **OONI Probe** to monitor for censorship or network manipulation in your area.
-* Run **SD Maid SE** monthly to clear any leftover data from removed apps.
+* Run **SD Maid SE** monthly to clear leftover data from removed apps.
 * Update all apps via F-Droid regularly — security patches are critical.
 
 **Your device now has a hardened, layered cybersecurity posture reducing risks from surveillance, phishing, malware, censorship, and network-level attacks.**
@@ -1004,8 +1305,8 @@ OONI Probe (Open Observatory of Network Interference) is a network measurement t
    * Settings → Automated testing → Enable
    * Set a schedule (e.g., daily at 3am on Wi-Fi only)
 6. **Interpret results:**
-   * If websites you expect to be accessible show as blocked → your ISP/government is censoring them → use iVizblePro's Tor routing to bypass
-   * If circumvention tools (Tor, VPNs) show as blocked → use iVizblePro's Tor bridge mode (obfs4 bridges)
+   * If websites you expect to be accessible show as blocked → your ISP/government is censoring them → use InviZible Pro's Tor routing to bypass
+   * If circumvention tools (Tor, VPNs) show as blocked → use InviZible Pro's Tor bridge mode with obfs4 bridges (see OPSEC Step 2)
 
 ### Why It's in the DresOS Suite
 
@@ -1013,32 +1314,73 @@ Understanding your threat environment is the first step in defending against it.
 
 ---
 
-## 7. iVizblePro — All-in-One Proxy, Firewall & VPN
+## 7. InviZible Pro — Tor + I2P + DNSCrypt in Proxy + Root Mode
 
+**App Store Name:** InviZible Pro
 **Download:** [pan.alexander.tordnscrypt.stable_26603.apk](https://f-droid.org/repo/pan.alexander.tordnscrypt.stable_26603.apk)
 
-*(Full setup instructions in Part 2 — OPSEC Step 2)*
+*(Full step-by-step setup in Part 2 — OPSEC Step 2)*
 
 ### What It Is
 
-iVizblePro (InviZible Pro) is the most important privacy tool in the DresOS stack. It is a single application that replaces what would otherwise require an entire stack of separate tools: Orbot (Tor), a standalone I2P client, a DNSCrypt resolver, and a firewall. It operates through the Android VPN interface, routing all traffic through its combined privacy stack.
+**InviZible Pro** is the network privacy engine of the DresOS stack. It is a single application combining **Tor**, **I2P**, and **DNSCrypt** — running in **proxy + root mode**, which means it does not use the Android VPN slot and can run alongside DuckDuckGo App Tracking Protection simultaneously. It routes your traffic through Tor via Android's system proxy setting, giving every app that respects the system proxy a Tor exit node as its apparent IP address. Root access via Magisk lets it redirect all DNS at the iptables level — nothing bypasses DNSCrypt.
+
+### What It Replaces
+
+| Without InviZible Pro | With InviZible Pro |
+|---|---|
+| Orbot (Tor client — separate app) | Built-in Tor with isolation settings |
+| Standalone DNSCrypt app | Built-in DNSCrypt with DNSSEC |
+| Standalone I2P client | Built-in I2P with garlic routing |
+| Plain-text DNS leaking to ISP | All DNS encrypted via iptables redirect |
+| Real IP visible to websites | Tor exit node IP visible instead |
 
 ### Summary of Features
 
-* **Tor** — routes traffic through the onion network for strong anonymity; supports bridges and obfs4 for censored regions
-* **I2P** — separate garlic-routing anonymity network for I2P hidden services and enhanced privacy
-* **DNSCrypt** — encrypts and authenticates all DNS queries; prevents ISP surveillance via DNS
-* **DNSSEC** — validates DNS responses cryptographically to prevent DNS spoofing
-* **Built-in Firewall** — per-app firewall rules with kill switch; forces specific apps through Tor; blocks untrusted apps from the internet entirely
-* **VPN mode** — routes all Android traffic through the above stack via the native VPN interface
-* **Root support** — uses iptables for enhanced firewall control on rooted devices
-* **Start on boot + kill switch** — ensures protection is always on; no traffic leaks if the app restarts
+* **Tor** — three-hop onion routing for strong anonymity; circuit isolation per destination; obfs4 bridge support for censored networks
+* **I2P** — independent garlic-routing network for I2P eepsites and a distinct anonymity model from Tor
+* **DNSCrypt** — encrypts and authenticates all DNS queries via a local resolver on port 5354; prevents ISP-level domain surveillance
+* **DNSSEC** — cryptographically validates every DNS response; blocks spoofed DNS answers
+* **Root / iptables DNS redirect** — forces all device DNS (port 53 → 5354) through DNSCrypt at the kernel level; no app can bypass it
+* **Proxy mode** — exposes Tor as HTTP proxy on `127.0.0.1:8118` and SOCKS5 on `127.0.0.1:9050`; Android system proxy routes all compatible app traffic through Tor without touching the VPN slot
+* **Start on boot** — restores all services and iptables rules automatically after every reboot
+* Works alongside DuckDuckGo App Tracking Protection (VPN slot is completely free)
 
-*(For complete step-by-step setup including Tor bridge configuration, DNSCrypt server selection, I2P bootstrap, firewall rules, and VPN mode activation, see Part 2 — OPSEC Step 2.)*
+*(Full setup guide covering all 9 phases — proxy mode config, DNS server selection, Tor isolation settings, I2P bootstrap, root iptables activation, Android system proxy IP spoofing, DuckDuckGo ATP enablement, and verification — is in Part 2 — OPSEC Step 2.)*
 
 ---
 
-## 8. Metrolist — Private YouTube Music Client
+## 8. AFWall+ — Root-Level iptables Firewall
+
+**Download:** F-Droid — [dev.ukanth.ufirewall](https://f-droid.org/packages/dev.ukanth.ufirewall/) / [GitHub](https://github.com/ukanth/afwall)
+
+*(Full setup and custom rules in Part 2 — OPSEC Step 3)*
+
+### What It Is
+
+**AFWall+** (Android Firewall+) is a root-level firewall that uses **iptables** — the Linux kernel's native packet filtering framework — to control internet access per app, per network interface. It operates at the kernel level, below all apps, VPNs, and proxy layers. An app cannot circumvent it by any means: iptables rules are enforced by the kernel before traffic ever reaches a network socket.
+
+AFWall+ is a completely separate and complementary layer to InviZible Pro. InviZible Pro handles routing and anonymisation — AFWall+ handles access control. Together they give defence in depth: even if InviZible Pro's proxy routing is temporarily unavailable or an app ignores the system proxy, AFWall+ still enforces which apps are allowed to communicate at all.
+
+### Key Features
+
+* **Per-app, per-interface rules** — separately control Wi-Fi, mobile data, and VPN for every installed app
+* **Whitelist mode** — default deny; only explicitly approved apps can reach the internet
+* **Custom iptables rules** — write raw iptables rules for advanced control (e.g. mobile data proxy redirect to port 8118)
+* **Logging** — logs every blocked connection attempt; reveals apps trying to phone home
+* **PIN lock** — locks the firewall UI so no app or accidental tap can disable rules
+* **LAN control** — optionally block apps from accessing your local network
+* Works on any rooted Android device with Magisk; no VPN slot consumed
+
+### Why It's in the DresOS Suite
+
+Every de-Googled phone still has apps that attempt to reach the internet — analytics libraries embedded in third-party APKs, microG service pings, update checkers, background sync services. InviZible Pro routes traffic anonymously but does not block apps from connecting. AFWall+ fills this gap: apps you have not explicitly approved cannot generate any network traffic at all. It also solves the mobile data proxy gap — Android's system proxy applies to Wi-Fi only, but AFWall+'s custom iptables rules can redirect HTTP/HTTPS traffic on mobile data interfaces through InviZible Pro's Tor proxy on port 8118 as well.
+
+*(Full configuration, recommended per-app rules table, and custom iptables rules for mobile data proxy routing are in Part 2 — OPSEC Step 3.)*
+
+---
+
+## 9. Metrolist — Private YouTube Music Client
 
 **Download:** [Metrolist.apk](https://github.com/MetrolistGroup/Metrolist/releases/download/v13.3.0/Metrolist.apk)
 
@@ -1064,7 +1406,7 @@ Metrolist is a privacy-focused, modded YouTube Music client. It provides access 
    * Browse and search the full YouTube Music catalogue freely
    * Your listening history is stored locally only
 4. **With account (access your library):**
-   * Tap the account icon → sign in via AOSmium browser with your Google account
+   * Tap the account icon → sign in via **DuckDuckGo Privacy Browser** with your Google account
    * Your playlists, liked songs, and subscriptions will sync
    * Understand that YouTube/Google will still log your listening activity server-side when you are logged in
 5. **Background playback:**
@@ -1079,7 +1421,7 @@ Music streaming should not come with a surveillance apparatus. Metrolist gives y
 
 ---
 
-## 9. Arcane Chat — Decentralized Encrypted Messaging
+## 10. Arcane Chat — Decentralized Encrypted Messaging
 
 **Download:** [ArcaneChat-foss-arm64-v8a-2.43.0.apk](https://github.com/ArcaneChat/android/releases/download/v2.43.0/ArcaneChat-foss-arm64-v8a-2.43.0.apk)
 
@@ -1126,7 +1468,7 @@ Most encrypted messengers require you to trust a central server (Signal's server
 
 ---
 
-## 10. Aurora Store — Anonymous App Store
+## 11. Aurora Store — Anonymous App Store
 
 **Download:** Install via F-Droid — search "Aurora Store" or go to `https://f-droid.org/packages/com.aurora.store/`
 
@@ -1163,7 +1505,7 @@ Completely removing Play Store access is impractical for many users — some app
 
 ---
 
-## 11. Fossify Suite — Complete FOSS System Apps
+## 12. Fossify Suite — Complete FOSS System Apps
 
 **Download:** All via F-Droid — search each app name or visit [fossify.org/apps](https://www.fossify.org/apps/)
 
@@ -1202,7 +1544,7 @@ Every stock Google app (Dialer, Messages, Files, Gallery, Calendar) contains tel
 
 ---
 
-## 12. HeliBoard — Offline Keyboard
+## 13. HeliBoard — Offline Keyboard
 
 **Download:** F-Droid — search "HeliBoard" or visit `https://f-droid.org/packages/helium314.keyboard/`
 
@@ -1231,7 +1573,7 @@ HeliBoard is a fully open-source, completely offline keyboard for Android. It is
 
 ---
 
-## 13. Tuta Mail — Encrypted Email
+## 14. Tuta Mail — Encrypted Email
 
 **Download:** F-Droid — `https://f-droid.org/packages/de.tutao.tutanota/`
 
@@ -1255,7 +1597,7 @@ Tuta Mail (formerly Tutanota) is an end-to-end encrypted email service operated 
 
 ---
 
-## 14. DuckDuckGo Privacy Browser — Primary Browser
+## 15. DuckDuckGo Privacy Browser — Primary Browser
 
 **Download:** F-Droid — `https://f-droid.org/packages/com.duckduckgo.mobile.android/`
 
@@ -1275,25 +1617,28 @@ DuckDuckGo Privacy Browser is a privacy-focused web browser with built-in tracke
 * **GPC (Global Privacy Control)** — broadcasts a legal opt-out signal to websites
 * No Google account required, no telemetry
 
-### ⚠️ Critical Setup Rule — App Tracking Protection
+### App Tracking Protection — Enable This
 
-DuckDuckGo includes a feature called **App Tracking Protection** that monitors tracker activity in other apps by using the Android VPN slot. **Do NOT enable this feature.** iVizblePro already handles all traffic-level privacy for every app on the device, and it requires exclusive use of the Android VPN slot. If App Tracking Protection is enabled at the same time as iVizblePro, one of them will be forced off.
+DuckDuckGo's **App Tracking Protection** monitors tracker activity inside all other apps on your phone using the Android VPN slot. **Enable this feature.** InviZible Pro runs in proxy + root mode and does not use the Android VPN slot at all — there is zero conflict. Both run simultaneously and independently:
 
-**The DuckDuckGo browser itself (without App Tracking Protection) is completely compatible with iVizblePro.**
+* **InviZible Pro** (proxy + iptables) → handles network-level anonymity: Tor IP routing, DNSCrypt, I2P
+* **DuckDuckGo App Tracking Protection** (VPN slot) → handles app-layer tracker blocking: stops trackers inside installed apps from phoning home
+
+You get both layers active at the same time, which is the full DresOS defensive stack.
 
 ### Setup and Usage
 
 1. Install via F-Droid.
 2. Open DuckDuckGo → complete onboarding.
-3. When it asks about App Tracking Protection → **skip or decline**.
+3. When it asks about App Tracking Protection → **Enable it**. Android will prompt you to allow a VPN connection for DuckDuckGo — tap OK. InviZible Pro uses proxy + root mode and does not occupy the VPN slot, so there is no conflict.
 4. Set as default browser: Settings → Apps → Default apps → Browser → DuckDuckGo.
 
 **Setting up Duck Address (Email Protection):**
 
 5. Tap **≡ menu → Settings → Email Protection → Get Started**.
 6. When prompted for a forwarding address, enter your **Tuta Mail address**.
-7. You will receive a `@duck.com` alias. **No phone number required** — your account is secured with an encryption key only. Write that key down and store it safely.
-8. From now on, use your Duck Address (or auto-generated per-site aliases) for every sign-up on every app and website — see full setup guide in OPSEC Step 3.
+7. You will receive a `@duck.com` alias. **No phone number required** — your account is secured with an encryption key only. Write that key down and store it safely alongside your Tuta recovery code.
+8. From now on, use your Duck Address (or auto-generated per-site aliases) for every sign-up on every app and website — see full setup guide in OPSEC Step 4.
 
 **Using the built-in password manager:**
 
@@ -1308,7 +1653,7 @@ DuckDuckGo includes a feature called **App Tracking Protection** that monitors t
 
 ---
 
-## 15. AOSmium — System WebView (Privacy-Hardened WebView Engine)
+## 16. AOSmium — System WebView (Privacy-Hardened WebView Engine)
 
 **Download:** AXP.OS F-Droid repo (see Step 7) or [codeberg.org/AXP-OS/app_aosmium/releases](https://codeberg.org/AXP-OS/app_aosmium/releases)
 
@@ -1367,8 +1712,9 @@ MIT License — see [LICENSE](LICENSE) file.
 
 ## Made with ❤️ for privacy by DresOS
 
-**You now have a 100% de-Googled DresOS, operationally secure Android device** — no Google apps, no Google Services, AOSmium WebView system-wide, Tor + I2P + DNSCrypt + Firewall via iVizblePro, and a complete defensive security app suite. Every tool is open-source, every APK is sourced directly from verified developers, and every component is designed to give you control of your own device, your own data, and your own privacy.
+**You now have a 100% de-Googled, cyber secure Android device** — no Google apps, no Google Services, AOSmium (or Vanadium) system WebView, Tor + I2P + DNSCrypt via InviZible Pro proxy + root mode, root-level iptables firewall via AFWall+, app-layer tracker blocking via DuckDuckGo App Tracking Protection, and a complete defensive security app suite. Every tool is open-source, every APK is sourced directly from verified developers, and every component is designed to give you full control of your own device, your own data, and your own privacy.
 
+---
 ---
 
 **This is an update to both the degoogled and opsec project**
