@@ -3,6 +3,7 @@
 **A Complete Rooted DeGoogling + Operational Security Guide**
 **TWRP + Magisk + MicroG + Fossify + InviZible Pro + AFWall+ + DresOS App Suite – For 2026**
 
+**this build guide is under active developement and due some massive upgrades**
 ---
 
 > **Project Goal:** Turn any stock Android phone into a fully private, hardened, FOSS-only device with no Google tracking, no Google Services, no hidden data harvesting, and only open-source replacements — then layer on a full defensive security stack to protect against surveillance, malware, censorship, and network-level attacks.
