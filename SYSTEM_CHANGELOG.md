@@ -49,13 +49,6 @@ The security architecture document has been updated to reflect:
 
 - WebView layer: install path corrected to system/app (not system/priv-app)
 - Threat map: added "Sensitive files on device -> AES-256 encrypted by Amaze File Manager"
-
----
-
-### Em Dash Cleanup
-
-All em dashes (--) replaced with standard hyphens throughout the guide, security architecture, and all module files.
-
 ---
 
 ### Magisk Modules Roadmap
