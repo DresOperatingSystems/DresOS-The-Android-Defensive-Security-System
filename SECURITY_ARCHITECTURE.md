@@ -87,30 +87,59 @@
 │  clients, shopping apps, microG sign-in pages, and hundreds     │
 │  more. Replaced entirely via a single Magisk module flash.      │
 │                                                                  │
-│  INSTALLED BY - DresOS AOSmium WebView Module v2.0              │
+│  INSTALLED BY - DresOS AOSmium WebView Module v2.1.0            │
 │  ├── Repo: github.com/DresOperatingSystems/DresOS-Magisk-Modules│
 │  ├── Single flash handles entire installation process:          │
-│  │   ├── Validates API 29+ and ARM/ARM64 arch                   │
-│  │   ├── Removes competing WebView data-partition updates        │
-│  │   ├── Systemless .replace debloat - hides all competing      │
-│  │   │   WebView packages (Chrome, Google WebView, AOSP         │
-│  │   │   WebView, Trichrome, OEM variants) via Magisk bind      │
-│  │   │   mounts - no system partition files modified            │
-│  │   ├── Installs AOSmium APK to system/app (system/product/app on LOS) │
-│  │   ├── Remaps /product /vendor /system_ext paths              │
-│  │   └── Activates via cmd webviewupdate at first boot          │
-│  └── Log: /data/adb/modules/dresoswv/webview_activation.log    │
+│  │   ├── Validates Magisk 24.0+, Android 10-15, arm/arm64       │
+│  │   ├── Aborts on x86/x86_64 (no AXP.OS WebView build)         │
+│  │   ├── Aborts on APEX WebView devices (forward-looking guard) │
+│  │   ├── Picks correct AOSmium APK for device ABI from the two  │
+│  │   │   bundled in the zip (webview64-signed / webview32-signed)│
+│  │   ├── Drops APK into systemless tree at                       │
+│  │   │   system/product/app/AOSmiumWebView/ via magic mount     │
+│  │   ├── Places static RRO in systemless overlay partition that │
+│  │   │   adds org.axpos.aosmium_wv + AXP.OS ECDSA certificate   │
+│  │   │   to framework config_webview_packages allowlist         │
+│  │   ├── OEM WebView (com.google.android.webview /              │
+│  │   │   com.android.webview) kept as fallback in allowlist     │
+│  │   ├── service.sh runs cmd webviewupdate set-webview-          │
+│  │   │   implementation after sys.boot_completed                │
+│  │   ├── Activation verified via dumpsys webviewupdate          │
+│  │   └── No pm install. No .replace markers on OEM WebView.     │
+│  │                                                               │
+│  ├── BOOTLOOP SAFETY - two independent layers:                   │
+│  │   ├── post-fs-data sentinel: boot_pending marker dropped     │
+│  │   │   every boot, cleared by service.sh on success. Stale    │
+│  │   │   marker on next boot = previous crash, module auto-     │
+│  │   │   disables via /data/adb/modules/dresoswv/disable         │
+│  │   └── Inert mode: activation failure touches inert flag,     │
+│  │       prevents retry storms on subsequent boots              │
+│  │                                                               │
+│  └── Logs:                                                       │
+│      ├── /data/adb/modules/dresoswv/logs/install.log            │
+│      ├── /data/adb/modules/dresoswv/logs/boot.log               │
+│      ├── /data/adb/modules/dresoswv/logs/service.log            │
+│      └── /data/adb/modules/dresoswv/webview_activation.log      │
 │                                                                  │
 │  WEBVIEW ENGINE - AOSmium (AXP.OS Project)                      │
 │  ├── Package: org.axpos.aosmium_wv                              │
 │  ├── Chromium 147.0.7727.49                                     │
 │  ├── GrapheneOS / Vanadium security patches applied             │
-│  └── Google services and anti-features stripped throughout      │
+│  ├── Google services and anti-features stripped throughout      │
+│  └── Cert SHA-256: 005C9805D501BF50C1A8BFD3204B6908843088581F   │
+│      DCF3DB8AB4F688FFC0E7B6 (AXP.OS ECDSA P-521)                │
 │                                                                  │
-│  LICENSE - Module: GPL-3.0 | AOSmium APK: AXP.OS license       │
+│  CONFIRMED DEVICES                                              │
+│  ├── Motorola Moto G32 (LineageOS Android 15)                   │
+│  ├── Motorola ThinkPhone (Stock Android 15)                     │
+│  ├── Motorola Moto G7 Plus (Stock Android 10)                   │
+│  ├── Motorola Moto G7 Plus (LineageOS Android 15)               │
+│  └── Samsung Galaxy A05s (Stock Android 10)                     │
 │                                                                  │
-│  After flash: Developer Options -> WebView implementation        │
-│  -> select AOSmium WebView (may activate automatically)          │
+│  LICENSE - Module: GPL-3.0 | AOSmium APK: AXP.OS license        │
+│                                                                  │
+│  After flash and reboot: activation is automatic. Verify with    │
+│  adb shell dumpsys webviewupdate | grep "Current WebView"        │
 └─────────────────────────────────────────────────────────────────┘
                               │
                               ▼

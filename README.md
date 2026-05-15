@@ -96,7 +96,7 @@ Download **only** from these official links (2026). Install **F-Droid** first - 
 | **De-Bloater** | Fine-tune system app removal | [F-Droid](https://f-droid.org/packages/com.sunilpaulmathew.debloater/) / [GitHub](https://github.com/sunilpaulmathew/De-Bloater) |
 | **Noogle microG** | Magisk module - replaces Google Play Services | [GitHub Releases](https://github.com/SelfRef/noogle-magisk/releases) |
 | **LSPosed** | Advanced Xposed-style module framework | [GitHub Releases](https://github.com/LSPosed/LSPosed/releases) |
-| **DresOS AOSmium WebView Module** | Magisk module - installs AOSmium to system/app, hides competing WebViews via .replace, patches config_webview_packages allowlist via RRO overlay | [DresOS-Magisk-Modules releases](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest) |
+| **DresOS AOSmium WebView Module** | Magisk module v2.1.0 - systemless replacement of Android System WebView with AOSmium via static RRO plus bind mount, activated by cmd webviewupdate after boot, with bootloop sentinel and inert mode fallback | [DresOS-Magisk-Modules releases](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest) |
 | **AFWall+** | Root-level iptables firewall - per-app kernel-level rules, mobile data proxy redirect, no VPN slot | [F-Droid](https://f-droid.org/packages/dev.ukanth.ufirewall/) / [GitHub](https://github.com/ukanth/afwall) |
 | **SD Maid SE** | Deep system cleaner + remnant finder | [F-Droid](https://f-droid.org/packages/eu.darken.sdmse/) |
 | **Fossify Suite** | Phone, Messages, Gallery, Calendar, Launcher, Contacts, Music | [fossify.org/apps](https://www.fossify.org/apps/) (all via F-Droid) |
@@ -130,7 +130,7 @@ Here is exactly what each core app replaces and why it is better for privacy:
 | Noogle microG | Google Play Services | Full app compatibility without any Google tracking infrastructure |
 | Fossify Gallery / Calendar / Launcher / Contacts / Music | Stock Google equivalents | All open source, no cloud sync or telemetry |
 | Gopeed | Google Download Manager | Modern FOSS download manager - HTTP/BitTorrent/magnet, hash verification, actively maintained |
-| DresOS AOSmium WebView Module | Manual WebView patching process | Single Magisk flash: installs AOSmium, hides competing packages, activates via webviewupdate |
+| DresOS AOSmium WebView Module | Manual WebView patching process | Single Magisk flash: places AOSmium in systemless tree, ships a static RRO that allowlists it in config_webview_packages, activates via cmd webviewupdate after boot, includes bootloop sentinel |
 | InviZible Pro | Orbot + separate DNS/I2P apps | Combines Tor, I2P, and DNSCrypt in proxy + root mode - no VPN slot used; IP spoofing via Android system proxy; iptables DNS redirect at kernel level |
 | AFWall+ | No equivalent in stock Android | Root-level iptables firewall; per-app internet blocking at kernel level; custom rules for mobile data proxy routing; works independently of VPN and proxy layers |
 
@@ -236,11 +236,11 @@ Open **Magisk app** → **Modules** → **Install from storage** and flash each 
 
 1. **Noogle microG** - replaces Google Play Services
 2. **LSPosed** - advanced Xposed module framework (Zygisk version)
-3. **DresOS AOSmium WebView Module v1.0.0** - installs AOSmium to `system/app` (or `system/product/app` on LineageOS), systemlessly hides all competing WebView packages via Magisk `.replace` files, patches the WebView allowlist via RRO overlay, and registers AOSmium with the package manager via `pm install` at flash time
+3. **DresOS AOSmium WebView Module v2.1.0** - systemless replacement of Android System WebView with AOSmium. Drops the AOSmium APK into the systemless tree at `system/product/app/AOSmiumWebView/`, ships a static RRO that adds AOSmium plus the AXP.OS signing certificate to the framework `config_webview_packages` allowlist, and activates AOSmium via `cmd webviewupdate set-webview-implementation` after boot complete. Includes a post-fs-data bootloop sentinel and an inert mode fallback so a failed activation cannot bootloop the device.
    * **Module repo:** [github.com/DresOperatingSystems/DresOS-Magisk-Modules](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules)
-   * **Download:** [DresOS-AOSmium-WebView-v1.0.0.zip](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest)
+   * **Download:** [DresOS-AOSmium-WebView-v2.1.0.zip](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest)
    * Handles the entire WebView switch in one flash. Full details in Step 7.
-   * First module in the DresOS Magisk Modules project. More modules to automate further steps are in development.
+   * First module in the DresOS Magisk Modules project. MicroG (dresosmicrog) is in active development as the next module.
 
 Reboot after flashing all three.
 
@@ -272,51 +272,88 @@ Your everyday browser is **DuckDuckGo Privacy Browser**. AOSmium runs silently i
 
 ---
 
-### DresOS AOSmium WebView Module v1.0.0
+### DresOS AOSmium WebView Module v2.1.0
 
 **Module repo:** [github.com/DresOperatingSystems/DresOS-Magisk-Modules](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules)
-**Download:** [DresOS-AOSmium-WebView-v1.0.0.zip](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest)
+**Download:** [DresOS-AOSmium-WebView-v2.1.0.zip](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest)
 
 **What the module does in one flash:**
 
-1. Validates your device - Android 10+ and ARM/ARM64
-2. Removes data-partition updates of Chrome, Google WebView, AOSP WebView, TrichromeLibrary, and OEM WebView customisations
-3. Systemlessly hides all competing system WebView packages via Magisk `.replace` files - Magisk mounts empty directories over them at boot, making them invisible to the package manager without touching any system files. Fully reversible.
-4. Detects your ROM type - installs AOSmium to `system/product/app` on LineageOS or `system/app` on everything else
-5. Runs `pm install` to register AOSmium with the package manager
-6. Places a compiled RRO overlay that patches Android's `config_webview_packages` allowlist to include `org.axpos.aosmium_wv` - without this patch WebViewUpdateService rejects any non-stock WebView regardless
-7. At first boot, `service.sh` attempts activation via `cmd webviewupdate`
+1. Validates the host environment: Magisk 24.0 or newer, Android 10 through 15, arm or arm64 ABI. Aborts cleanly on x86/x86_64 (AXP.OS does not publish WebView builds for those ABIs), on unknown ABIs, and on devices that ship WebView as an APEX module.
+2. Selects the correct AOSmium APK for the device ABI from the two bundled in the zip (webview64-signed.apk for arm64, webview32-signed.apk for arm).
+3. Drops the signed AOSmium APK into the systemless tree at `system/product/app/AOSmiumWebView/AOSmiumWebView.apk`. Magisk magic mount makes this visible to PackageManager as a preinstalled system app, satisfying the framework `MATCH_FACTORY_ONLY` scan that `WebViewUpdateService` performs.
+4. Places a static RRO in the systemless overlay partition. The RRO adds `org.axpos.aosmium_wv` plus the full AXP.OS ECDSA signing certificate to the framework `config_webview_packages` resource, which is the canonical allowlist that `WebViewUpdateService` reads at boot. Both `com.google.android.webview` and `com.android.webview` are kept in the allowlist as fallbacks so removing AOSmium cannot leave the device without a valid provider.
+5. After `sys.boot_completed`, `service.sh` calls `cmd webviewupdate set-webview-implementation org.axpos.aosmium_wv` to promote AOSmium to the active provider, with a `settings put global webview_provider` fallback write for redundancy.
+6. Activation is verified by re reading `dumpsys webviewupdate`. If the active provider is not AOSmium, the module flips itself into inert mode and stays out of the way until the user investigates.
+
+**Bootloop safety:**
+
+The module ships with two layers of protection so a failed activation cannot brick the device.
+
+- **post-fs-data sentinel:** drops a `boot_pending` marker on every boot which `service.sh` clears on successful activation. A stale marker on the next boot signals a previous crash and the module auto-disables itself by touching `/data/adb/modules/dresoswv/disable`. Magisk recognises this file and skips the module entirely on subsequent boots.
+- **Inert mode flag:** set automatically by `service.sh` on any activation failure (RRO did not register, APK bind mount did not land, framework refused to select AOSmium). The module's files remain bind mounted by Magisk but no further activation is attempted on subsequent boots, preventing retry storms.
 
 **Package details:**
 - Package: `org.axpos.aosmium_wv`
 - Chromium version: `147.0.7727.49`
-- Architectures: `arm64-v8a` + `armeabi-v7a`
+- Architectures: `arm64-v8a` + `armeabi-v7a` (bundled in the same zip, picked at install time based on device ABI)
+- Signing cert SHA-256: `005C9805D501BF50C1A8BFD3204B6908843088581FDCF3DB8AB4F688FFC0E7B6` (AXP.OS ECDSA P-521)
+
+**Confirmed working devices:**
+
+| Device | Android version |
+|--------|----------------|
+| Motorola Moto G32 | LineageOS Android 15 |
+| Motorola ThinkPhone | Stock Android 15 |
+| Motorola Moto G7 Plus | Stock Android 10 |
+| Motorola Moto G7 Plus | LineageOS Android 15 |
+| Samsung Galaxy A05s | Stock Android 10 |
+
+If the module works on your device, open an issue on the DresOS Magisk Modules repository so it can be added to the confirmed list. Include device model, Android version, and the output of `adb shell dumpsys webviewupdate | grep Current` after activation.
 
 ### Flash Instructions
 
-1. Download `DresOS-AOSmium-WebView-v1.0.0.zip` from the releases link above
+1. Download `DresOS-AOSmium-WebView-v2.1.0.zip` from the releases link above
 2. Open **Magisk → Modules → Install from storage**
 3. Select the ZIP and wait for installation to complete
 4. Tap **Reboot**
 
 ### After Reboot
 
-Go to **Settings → System → Developer Options → WebView implementation** and select **AOSmium WebView**.
+No manual step is required. The module activates AOSmium automatically after boot complete. To verify activation, from adb:
 
-If Developer Options is not visible: Settings → About phone → tap Build number 7 times.
+```
+adb shell dumpsys webviewupdate | grep "Current WebView package"
+```
+
+Expected output:
+
+```
+Current WebView package (name, version): (org.axpos.aosmium_wv, 147.0.7727.49)
+```
+
+If the output shows the OEM provider instead of AOSmium, check the activation log to diagnose:
+
+```
+adb shell cat /data/adb/modules/dresoswv/webview_activation.log
+```
+
+The Developer Options WebView picker may still show the OEM provider as selected on some OEM ROMs even when AOSmium is actually active. Trust `dumpsys` over the UI.
 
 ### Diagnostic Logs
 
-If something goes wrong check these files in a terminal app:
+If something goes wrong check these files via adb or a terminal app:
 
 ```
-cat /data/adb/modules/dresoswv/install.log
-cat /data/adb/modules/dresoswv/activation.log
+/data/adb/modules/dresoswv/logs/install.log
+/data/adb/modules/dresoswv/logs/boot.log
+/data/adb/modules/dresoswv/logs/service.log
+/data/adb/modules/dresoswv/webview_activation.log
 ```
 
 ### Uninstalling
 
-Disable or remove the module in **Magisk → Modules** and reboot. The `uninstall.sh` script reverts to stock WebView automatically and all hidden packages reappear.
+Disable or remove the module in **Magisk → Modules** and reboot. The `uninstall.sh` script clears the framework's saved WebView provider selection and restores either `com.google.android.webview` (on GMS devices) or `com.android.webview` (on AOSP/LineageOS builds) as the active provider.
 
 ---
 
@@ -565,7 +602,7 @@ Go to **Settings → Apps → Default apps** and set:
 * Send and receive a test SMS via **Fossify Messages**
 * Send and receive a test email via **Tuta Mail**
 * Open a website in **DuckDuckGo Privacy Browser** - confirm it is working and App Tracking Protection shows active
-* Check **Settings → Developer Options → WebView implementation** - confirm AOSmium is selected
+* Verify AOSmium is the active WebView provider via `adb shell dumpsys webviewupdate | grep "Current WebView package"` - the output should show `org.axpos.aosmium_wv`
 * Open **AFWall+** - confirm firewall rules are applied and iptables is active
 * Open **Aurora Store** - verify apps load and anonymous mode works
 * Open an APK via **SAI** - confirm it installs correctly
@@ -1590,7 +1627,7 @@ You get both layers active at the same time, which is the full DresOS defensive 
 
 ## 16. AOSmium - System WebView (Privacy-Hardened WebView Engine)
 
-**Installed via:** [DresOS AOSmium WebView Module v1.0.0](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest) - flash in Magisk, handles everything automatically
+**Installed via:** [DresOS AOSmium WebView Module v2.1.0](https://github.com/DresOperatingSystems/DresOS-Magisk-Modules/releases/latest) - flash in Magisk, handles everything automatically
 
 **APK source:** [codeberg.org/AXP-OS/app_aosmium/releases](https://codeberg.org/AXP-OS/app_aosmium/releases)
 
@@ -1607,11 +1644,11 @@ The **Android System WebView** is used internally by hundreds of apps whenever t
 ### Installation
 
 The DresOS Magisk module handles the full installation:
-- Places AOSmium APK in system/app (or system/product/app on LineageOS)
-- Systemlessly hides all competing WebView packages via Magisk `.replace` files
-- Activates AOSmium via `cmd webviewupdate` on first boot after flash
+- Drops the signed AOSmium APK into the systemless tree at `system/product/app/AOSmiumWebView/` via Magisk magic mount
+- Places a static RRO in the systemless overlay partition that allowlists AOSmium plus the AXP.OS signing certificate in the framework `config_webview_packages` resource
+- Activates AOSmium via `cmd webviewupdate set-webview-implementation` after boot complete, with `dumpsys` verification
 
-After rebooting, confirm it is active: **Settings → Developer Options → WebView implementation → AOSmium WebView**
+No manual step is required after the reboot. To confirm activation, run `adb shell dumpsys webviewupdate | grep "Current WebView package"`. The expected output is `org.axpos.aosmium_wv`.
 
 ### Features
 
@@ -1619,6 +1656,7 @@ After rebooting, confirm it is active: **Settings → Developer Options → WebV
 * Google anti-features stripped throughout
 * Hardens web content rendering for every app on the device simultaneously
 * Package: `org.axpos.aosmium_wv` - unique name, no package conflicts with any stock WebView
+* The OEM WebView (`com.google.android.webview` on Pixel/GMS, `com.android.webview` on AOSP/LineageOS) is kept intact as a fallback in the RRO allowlist, so removing the module returns the device to its original provider with no manual cleanup
 
 ---
 
@@ -1630,8 +1668,8 @@ The DresOS Magisk Modules project ([github.com/DresOperatingSystems/DresOS-Magis
 
 | Module | What it automates | Status |
 |--------|-------------------|--------|
-| `dresoswv` - AOSmium WebView | System WebView replacement - hides competing packages, installs AOSmium, activates at boot | ✅ Released v1.0.0 |
-| `dresosmicrog` - Noogle microG | Google Play Services replacement | 🔨 Planned |
+| `dresoswv` - AOSmium WebView | System WebView replacement - drops AOSmium into systemless tree, allowlists it via static RRO, activates via cmd webviewupdate, includes bootloop sentinel | ✅ Released v2.1.0 |
+| `dresosmicrog` - Noogle microG | Google Play Services replacement | 🔨 In active development |
 | `dresosdebloat` - DresOS Debloater | Core Google app and system bloat removal | 🔨 Planned |
 | `dresosperms` - Permissions Hardener | Revoke dangerous permissions from system apps at flash time | 🔨 Planned |
 | `dresosafwall` - AFWall+ Bootstrap | Pre-configured iptables default-deny whitelist rules | 🔨 Planned |
@@ -1654,12 +1692,14 @@ Follow the module repo for updates, and open an issue there to request a module 
 Tested and confirmed working for the full DeGoogling + OPSEC stack:
 
 ```
-- Motorola Moto G32 (custom TWRP recovery available on DresOS GitHub profile)
-- Motorola Moto G7 Plus
-- Samsung Galaxy A05s
+- Motorola Moto G32 on LineageOS Android 15 (custom TWRP recovery available on DresOS GitHub profile)
+- Motorola ThinkPhone on Stock Android 15
+- Motorola Moto G7 Plus on Stock Android 10
+- Motorola Moto G7 Plus on LineageOS Android 15
+- Samsung Galaxy A05s on Stock Android 10
 ```
 
-**If this works on your device, please report it with proof to the DresOS team** so we can add it to the official compatibility list. Include: device model, Android version, TWRP version used, and which steps you completed.
+**If this works on your device, please report it with proof to the DresOS team** so we can add it to the official compatibility list. Include: device model, Android version, TWRP version used, which steps you completed, and the output of `adb shell dumpsys webviewupdate | grep Current` after the AOSmium module is active.
 
 Device-specific debloat lists and flashable ZIPs are available for the above devices. Drop your exact model in the Issues tab and the DresOS team will add a custom guide or resource for your device.
 

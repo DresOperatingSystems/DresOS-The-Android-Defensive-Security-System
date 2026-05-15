@@ -1,6 +1,75 @@
 # DresOS Android Defensive Security System - Changelog
 
-## May 2026 Update
+## May 15, 2026 Update
+
+---
+
+### WebView - DresOS AOSmium WebView Module Rewritten to v2.1.0
+
+The AOSmium WebView Magisk module has been rewritten end to end and released as v2.1.0. The previous v1.0.0 bootlooped Pixel 9 and several LineageOS builds, and the v1.2.x intermediates flashed cleanly but never actually activated AOSmium. v2.1.0 fixes all of this with a redesigned activation pipeline and two layers of bootloop safety.
+
+The Step 5 module list, the Step 7 deep dive, the App Suite section 16 entry, and the Magisk Modules Roadmap have all been updated to reflect the new mechanism. The old language describing pm install, Magisk .replace files, and manual selection in Developer Options has been removed from the guide entirely.
+
+What the module does now in one flash:
+
+- Validates the host environment: Magisk 24.0 or newer, Android 10 through 15, arm or arm64 ABI. Aborts cleanly on x86/x86_64 (AXP.OS does not publish WebView builds for those ABIs), on unknown ABIs, and on devices that ship WebView as an APEX module.
+- Drops the signed AOSmium APK into the systemless tree at `system/product/app/AOSmiumWebView/AOSmiumWebView.apk`. Magisk magic mount makes this visible to PackageManager as a preinstalled system app, satisfying the framework `MATCH_FACTORY_ONLY` scan.
+- Places a static RRO in the systemless overlay partition. The RRO adds `org.axpos.aosmium_wv` plus the full AXP.OS ECDSA signing certificate to the framework `config_webview_packages` allowlist. Both `com.google.android.webview` and `com.android.webview` are kept in the allowlist as fallbacks.
+- After `sys.boot_completed`, `service.sh` runs `cmd webviewupdate set-webview-implementation org.axpos.aosmium_wv` to promote AOSmium to the active provider. Activation is verified by re reading `dumpsys webviewupdate`.
+
+Two bootloop safety layers were added:
+
+- post-fs-data sentinel: drops a boot_pending marker on every boot which service.sh clears on success. A stale marker on the next boot triggers `touch /data/adb/modules/dresoswv/disable`, which Magisk respects to skip the module entirely on subsequent boots.
+- Inert mode flag: set automatically by service.sh on any activation failure. Files remain bind mounted by Magisk but no further activation is attempted until the flag is cleared.
+
+After flashing v2.1.0, no manual step in Developer Options is required. Verify activation from adb with `adb shell dumpsys webviewupdate | grep "Current WebView package"`. Expected output: `Current WebView package (name, version): (org.axpos.aosmium_wv, 147.0.7727.49)`.
+
+---
+
+### Compatible Devices Expanded
+
+The Compatible Devices appendix has been updated with the four newly confirmed device and Android version combinations. The list now reads:
+
+- Motorola Moto G32 on LineageOS Android 15
+- Motorola ThinkPhone on Stock Android 15
+- Motorola Moto G7 Plus on Stock Android 10
+- Motorola Moto G7 Plus on LineageOS Android 15
+- Samsung Galaxy A05s on Stock Android 10
+
+---
+
+### Security Architecture Update
+
+The Layer 5 (System WebView) section of `SECURITY_ARCHITECTURE.md` has been rewritten to reflect the new v2.1.0 activation pipeline. The diagram now describes:
+
+- Systemless APK placement at `system/product/app/AOSmiumWebView/` (no more system/app vs system/product/app branching)
+- Static RRO with AXP.OS ECDSA certificate embedded in `config_webview_packages` allowlist
+- OEM WebView retained as a fallback rather than hidden with .replace markers
+- `cmd webviewupdate set-webview-implementation` activation with `dumpsys` verification
+- post-fs-data sentinel and inert mode flag as the two bootloop safety layers
+- Confirmed working device list
+- AXP.OS signing certificate SHA-256 fingerprint for verification
+
+---
+
+### Magisk Modules Roadmap
+
+The MicroG module (`dresosmicrog`) has moved from "Planned" to "In active development" as the next module to ship now that AOSmium WebView is stable. It will replace Google Play Services with MicroG for app compatibility without Google's tracking infrastructure, in a single Magisk flash. Updates will be posted in the Updates tab on the DresOS website.
+
+The full roadmap status:
+
+- dresoswv: AOSmium WebView - Released v2.1.0
+- dresosmicrog: Noogle microG installer - In active development
+- dresosdebloat: Core Google app and system bloat removal - Planned
+- dresosperms: Dangerous permission revocation from system apps - Planned
+- dresosafwall: AFWall+ pre-configured iptables rules - Planned
+- dresosoverlay: System-level telemetry and advertising ID disabling - Planned
+- dresosfossify: Fossify suite system app installer - Planned
+- dresosheliboard: HeliBoard default keyboard installer - Planned
+
+---
+
+## Early May 2026 Update
 
 ---
 
