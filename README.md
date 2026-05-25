@@ -9,7 +9,7 @@
 
 ---
 
-> **Project Goal:** Turn any stock Android phone into a fully private, hardened, FOSS-only device with no Google tracking, no Google Services, no hidden data harvesting, and only open-source replacements - then layer on a full defensive security stack to protect against surveillance, malware, censorship, and network-level attacks.
+> **Project Goal:** Turn any Android phone into a fully private, hardened, FOSS-only device with no Google tracking, no Google Services, no hidden data harvesting, and only open-source replacements - then layer on a full defensive security stack to protect against surveillance, malware, censorship, and network-level attacks.
 >
 > **Why:** Because of all the restrictions Google is bringing into place over the open-source communities, to bring you back your privacy, to stop your data being sold, and to give you full operational security on a device you actually control.
 
