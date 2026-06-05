@@ -1,45 +1,47 @@
 
 # DresOS Android Defensive Security System - Changelog
 
-## May 25, 2026 Update
+## June 5, 2026 Update
 
 ---
 
-### microG - DresOS microG Module Released as v2.0.0
+### microG - DresOS microG Module Rebuilt and Released as v3.0.0
 
-The DresOS microG Magisk module has been released as v2.0.0 and replaces the older Noogle microG plus LSPosed plus FakeGApps chain in the build guide. It is a single Magisk flash that ships the full microG suite as systemless privileged apps with a bundled Zygisk signature spoof scoped to the microG process only.
+The DresOS microG Magisk module has been rebuilt from the ground up and released as v3.0.0, replacing the v2.0.0 design entirely. It is now a pure file overlay with no Zygisk payload, no Xposed or LSPosed dependency, and no boot-time PackageManager work, which means it physically cannot bootloop the device and it coexists cleanly with the AOSmium WebView module.
 
-Step 5 (Install Magisk Modules) and Step 6 (Set Up microG) in the build guide have been rewritten end to end. The Step 5 module list, the Step 6 setup procedure, the SECURITY_ARCHITECTURE.md Layer 8 entry, the What You Will Need table, and the Magisk Modules Roadmap have all been updated to reflect the new module.
+Step 5 (Install Magisk Modules), Step 6 (Set Up microG), the What You Will Need table, and the SECURITY_ARCHITECTURE.md Layer 8 entry have all been updated to match.
 
 What the module does in one flash:
 
-- Stages microG GmsCore 0.3.7.250932, microG Companion (FakeStore at com.android.vending), microG GsfProxy, microG DroidGuard Helper, Aurora Store, and Aurora Services as systemless privileged apps. APKs and matching privapp permissions XML land in the same partition (`system/product/priv-app` on API 28 plus, `system/priv-app` on API 26 and 27), satisfying Android 11 plus same partition enforcement.
-- Bundles a Zygisk based signature spoof, scoped to the microG process only, with a Google certificate read from the module directory. On arm64 and x86_64 LSPosed is NOT required. On armeabi-v7a, armeabi, x86, or riscv64 the bundled hook does not ship a prebuilt and LSPosed plus FakeGApps remains the fallback.
-- Detects ROMs that already ship a working upstream signed microG (CalyxOS, LineageOS for microG, iodeOS, /e/OS) by reading the X.509 cert SHA-256 via `cmd package dump`. On those ROMs the bundled microG is skipped and only the Aurora components are staged.
+- Ships the officially signed microG GmsCore 0.3.15, Companion (FakeStore at com.android.vending), GsfProxy, DroidGuard Helper, Aurora Store, and Aurora Services as privileged system apps under product, with a privapp-permissions allowlist generated from the bundled manifests.
+- Signature spoofing is provided by the ROM rather than by the module. Because the bundled microG APKs carry the official microG key, any ROM with microG signature spoofing support spoofs them automatically once they are placed in priv-app. There is no bundled hook and no Xposed framework on any ABI.
+- Aurora Services now lands as a priv-app with its own permissions allowlist, so silent prompt-free installs through Aurora Store work without the standard Android installer prompt for every app. This resolves the earlier Aurora Privileged Extension issue.
+- Detects an already-present, upstream-signed microG (CalyxOS, LineageOS for microG, iodeOS, /e/OS) by reading the X.509 cert SHA-256 via `cmd package dump` and leaves the ROM's copy in place, staging only the Aurora components on those ROMs.
 - Hard refuses to install on GrapheneOS, which deliberately blocks signature spoofing and ships its own Sandboxed Google Play.
-- Runs all PackageManager state mutations from `service.sh` after `sys.boot_completed` plus a settling delay. `customize.sh` does file work only. This avoids the racy install time PMS work that caused the older Noogle microG chain to be fragile on Pixel and several LineageOS builds.
-- Runtime Google debloat via `pm disable-user --user 0`, persisted in `/data/system/users/0/package-restrictions.xml`, reversible by `pm enable` or by uninstalling the module. No directory level `.replace` markers on priv-app dirs, which would have hidden the ART OAT cache on Android 14 plus and missed boot complete.
-- Per component bootloop sentinel. If any single piece (the Zygisk hook, the priv-app overlay, or the debloat pass) does not survive three consecutive boots, only that piece is disabled on the next boot and the rest of the module continues to operate.
 
-Known issue in v2.0.0: the Aurora Privileged Extension (`com.aurora.services`) does not always land as a system priv-app on every device, which means users will see the standard Android installer prompt for each Aurora Store install instead of the silent install path through Aurora Services. Aurora Store itself works fine. A targeted fix is the headline feature of v2.1.0.
+---
 
-Coming in upcoming releases:
+### App Suite - Gallery, Authenticator, Calendar, and Keyboard Design
 
-- v2.1.0: rework Aurora Services staging logic to land as `system_only_enabled` on every supported device, with a dedicated post boot self heal pass that detects `system_with_data_update_enabled`, `system_with_data_update_disabled`, and `data_only` states and remediates each.
-- v2.2.0: bundle a Play Integrity Fix so apps requiring attestation (banking apps, Pokemon Go, some streaming services) pass without a separate module flash. SafetyNet self check inside microG will go green.
+- The gallery app has moved from Fossify Gallery to Aves Libre, an open-source photo and video manager that keeps everything on the device with no cloud and no trackers.
+- Stratum has been added as the offline two-factor authenticator: open-source, single permission, encrypted exportable backups, and no network access, so it can be blocked in AFWall+.
+- Tuta Calendar has been added as the end-to-end encrypted calendar that syncs across devices through your Tuta account, alongside the local-only Fossify Calendar.
+- A ready-made DresOS HeliBoard design has been added, a privacy-tuned configuration restored as a single backup file from HeliBoard Backup and restore, hosted in the guide repository under `assets`.
 
-Diagnostics live at `/data/adb/modules/dresosmicrog/logs/` and runtime state under `/data/adb/dresosmicrog/`. The Action button on the module in the Magisk app reprints the full status dashboard, regrants runtime permissions, and restarts the microG components.
+---
+
+### Documentation - Link Audit and Video Demo
+
+- Every version-pinned download link in the guide has been converted to a stable form, either an F-Droid package page or a GitHub releases-latest page, so the links do not rot as apps update.
+- Part 3 of the guide was completed end to end. The app suite now documents nineteen apps, with DuckDuckGo Privacy Browser and AOSmium WebView in their correct positions and the Aves Libre, Stratum, and Tuta Calendar entries renumbered after them. The Compatible Devices list, the license note, and the closing were finalized, and the table of contents was corrected to match.
+- A full Motorola Moto g32 video demo of the running system has been linked in the guide and embedded on the website.
 
 ---
 
 ### Magisk Modules Roadmap
 
-The DresOS microG module (`dresosmicrog`) has moved from "In active development" to "Released v2.0.0". The next module in active development is the Permissions Hardener (`dresosperms`).
-
-The full roadmap status:
-
-- dresoswv: AOSmium WebView - Released v2.1.0
-- dresosmicrog: DresOS microG - Released v2.0.0
+- dresoswv: AOSmium WebView - Released v2.2.0
+- dresosmicrog: DresOS microG - Released v3.0.0
 - dresosperms: Dangerous permission revocation from system apps - In active development
 - dresosdebloat: Core Google app and system bloat removal - Planned
 - dresosafwall: AFWall+ pre-configured iptables rules - Planned
@@ -49,13 +51,39 @@ The full roadmap status:
 
 ---
 
+## May 25, 2026 Update
+
+---
+
+### microG - DresOS microG Module Released as v2.0.0
+
+The DresOS microG Magisk module has been released as v2.0.0 and replaces the older manual microG plus signature-spoofing-framework setup in the build guide. It is a single Magisk flash that ships the full microG suite as systemless privileged apps with a bundled Zygisk signature spoof scoped to the microG process only.
+
+Step 5 (Install Magisk Modules) and Step 6 (Set Up microG) in the build guide have been rewritten end to end. The Step 5 module list, the Step 6 setup procedure, the SECURITY_ARCHITECTURE.md Layer 8 entry, the What You Will Need table, and the Magisk Modules Roadmap have all been updated to reflect the new module.
+
+What the module does in one flash:
+
+- Stages microG GmsCore 0.3.7.250932, microG Companion (FakeStore at com.android.vending), microG GsfProxy, microG DroidGuard Helper, Aurora Store, and Aurora Services as systemless privileged apps. APKs and matching privapp permissions XML land in the same partition (`system/product/priv-app` on API 28 plus, `system/priv-app` on API 26 and 27), satisfying Android 11 plus same partition enforcement.
+- Bundles a Zygisk based signature spoof, scoped to the microG process only, with a Google certificate read from the module directory. On arm64 and x86_64 LSPosed is NOT required. On armeabi-v7a, armeabi, x86, or riscv64 the bundled hook does not ship a prebuilt and LSPosed plus FakeGApps remains the fallback.
+- Detects ROMs that already ship a working upstream signed microG (CalyxOS, LineageOS for microG, iodeOS, /e/OS) by reading the X.509 cert SHA-256 via `cmd package dump`. On those ROMs the bundled microG is skipped and only the Aurora components are staged.
+- Hard refuses to install on GrapheneOS, which deliberately blocks signature spoofing and ships its own Sandboxed Google Play.
+- Runs all PackageManager state mutations from `service.sh` after `sys.boot_completed` plus a settling delay. `customize.sh` does file work only. This avoids the racy install time PMS work that caused the older manual microG setup to be fragile on Pixel and several LineageOS builds.
+- Runtime Google debloat via `pm disable-user --user 0`, persisted in `/data/system/users/0/package-restrictions.xml`, reversible by `pm enable` or by uninstalling the module. No directory level `.replace` markers on priv-app dirs, which would have hidden the ART OAT cache on Android 14 plus and missed boot complete.
+- Per component bootloop sentinel. If any single piece (the Zygisk hook, the priv-app overlay, or the debloat pass) does not survive three consecutive boots, only that piece is disabled on the next boot and the rest of the module continues to operate.
+
+Known issue in v2.0.0: the Aurora Privileged Extension (`com.aurora.services`) did not always land as a system priv-app on every device, so some users saw the standard Android installer prompt for each Aurora Store install instead of the silent install path through Aurora Services. This was resolved in the v3.0.0 rebuild, which stages Aurora Services as a priv-app with its own permissions allowlist.
+
+Diagnostics live at `/data/adb/modules/dresosmicrog/logs/` and runtime state under `/data/adb/dresosmicrog/`. The Action button on the module in the Magisk app reprints the full status dashboard, regrants runtime permissions, and restarts the microG components.
+
+---
+
 ## May 15, 2026 Update
 
 ---
 
 ### WebView - DresOS AOSmium WebView Module Rewritten to v2.1.0
 
-The AOSmium WebView Magisk module has been rewritten end to end and released as v2.1.0. The previous v1.0.0 bootlooped Pixel 9 and several LineageOS builds, and the v1.2.x intermediates flashed cleanly but never actually activated AOSmium. v2.1.0 fixes all of this with a redesigned activation pipeline and two layers of bootloop safety.
+The AOSmium WebView Magisk module has been rewritten end to end and released as v2.1.0, with a redesigned activation pipeline and two layers of bootloop safety.
 
 The Step 5 module list, the Step 7 deep dive, the App Suite section 16 entry, and the Magisk Modules Roadmap have all been updated to reflect the new mechanism. The old language describing pm install, Magisk .replace files, and manual selection in Developer Options has been removed from the guide entirely.
 
@@ -98,23 +126,6 @@ The Layer 5 (System WebView) section of `SECURITY_ARCHITECTURE.md` has been rewr
 - post-fs-data sentinel and inert mode flag as the two bootloop safety layers
 - Confirmed working device list
 - AXP.OS signing certificate SHA-256 fingerprint for verification
-
----
-
-### Magisk Modules Roadmap
-
-The MicroG module (`dresosmicrog`) has moved from "Planned" to "In active development" as the next module to ship now that AOSmium WebView is stable. It will replace Google Play Services with MicroG for app compatibility without Google's tracking infrastructure, in a single Magisk flash. Updates will be posted in the Updates tab on the DresOS website.
-
-The full roadmap status:
-
-- dresoswv: AOSmium WebView - Released v2.1.0
-- dresosmicrog: Noogle microG installer - In active development
-- dresosdebloat: Core Google app and system bloat removal - Planned
-- dresosperms: Dangerous permission revocation from system apps - Planned
-- dresosafwall: AFWall+ pre-configured iptables rules - Planned
-- dresosoverlay: System-level telemetry and advertising ID disabling - Planned
-- dresosfossify: Fossify suite system app installer - Planned
-- dresosheliboard: HeliBoard default keyboard installer - Planned
 
 ---
 
@@ -167,16 +178,3 @@ The security architecture document has been updated to reflect:
 
 - WebView layer: install path corrected to system/app (not system/priv-app)
 - Threat map: added "Sensitive files on device -> AES-256 encrypted by Amaze File Manager"
----
-
-### Magisk Modules Roadmap
-
-The following modules are planned to automate further steps of the DresOS build:
-
-- dresosmicrog: Noogle microG installer
-- dresosdebloat: Core Google app and system bloat removal
-- dresosperms: Dangerous permission revocation from system apps
-- dresosafwall: AFWall+ pre-configured iptables rules
-- dresosoverlay: System-level telemetry and advertising ID disabling
-- dresosfossify: Fossify suite system app installer
-- dresosheliboard: HeliBoard default keyboard installer

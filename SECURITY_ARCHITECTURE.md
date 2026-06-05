@@ -87,7 +87,7 @@
 │  clients, shopping apps, microG sign-in pages, and hundreds     │
 │  more. Replaced entirely via a single Magisk module flash.      │
 │                                                                  │
-│  INSTALLED BY - DresOS AOSmium WebView Module v2.1.0            │
+│  INSTALLED BY - DresOS AOSmium WebView Module v2.2.0            │
 │  ├── Repo: github.com/DresOperatingSystems/DresOS-Magisk-Modules│
 │  ├── Single flash handles entire installation process:          │
 │  │   ├── Validates Magisk 24.0+, Android 10-15, arm/arm64       │
@@ -128,13 +128,6 @@
 │  ├── Google services and anti-features stripped throughout      │
 │  └── Cert SHA-256: 005C9805D501BF50C1A8BFD3204B6908843088581F   │
 │      DCF3DB8AB4F688FFC0E7B6 (AXP.OS ECDSA P-521)                │
-│                                                                  │
-│  CONFIRMED DEVICES                                              │
-│  ├── Motorola Moto G32 (LineageOS Android 15)                   │
-│  ├── Motorola ThinkPhone (Stock Android 15)                     │
-│  ├── Motorola Moto G7 Plus (Stock Android 10)                   │
-│  ├── Motorola Moto G7 Plus (LineageOS Android 15)               │
-│  └── Samsung Galaxy A05s (Stock Android 10)                     │
 │                                                                  │
 │  LICENSE - Module: GPL-3.0 | AOSmium APK: AXP.OS license        │
 │                                                                  │
@@ -198,18 +191,19 @@
 │  ├── Mock GPS location set to anywhere in the world             │
 │  └── All apps requesting location receive the fake coordinates  │
 │                                                                  │
-│  Google Services - DresOS microG Module v2.0.0                  │
+│  Google Services - DresOS microG Module v3.0.0                  │
 │  ├── Full replacement for Google Play Services                  │
 │  ├── Apps requiring Play Services work without Google tracking  │
-│  ├── Full microG suite in one flash: GmsCore, Companion          │
-│  │   (FakeStore), GsfProxy, DroidGuard, Aurora Store            │
-│  ├── Bundled Zygisk signature spoof, scoped to microG only       │
-│  │   on arm64 + x86_64. No LSPosed required on those ABIs       │
-│  ├── Cert verified self heal: X.509 SHA-256 read from PMS via    │
-│  │   cmd package dump, no .RSA blob hashing                      │
-│  ├── Runtime debloat via pm disable-user, reversible             │
-│  ├── Per component bootloop sentinel                             │
-│  └── ROMs that already ship microG (Calyx, iode, eOS, Lineage    │
+│  ├── Pure file overlay: officially signed microG in priv-app    │
+│  │   GmsCore 0.3.15, Companion, GsfProxy, DroidGuard,           │
+│  │   Aurora Store, Aurora Services                              │
+│  ├── Signature spoofing provided by the ROM via the official    │
+│  │   microG key. No Zygisk, no Xposed, no LSPosed, any ABI      │
+│  ├── Cert verified self heal: X.509 SHA-256 from cmd package    │
+│  │   dump, no .RSA blob hashing                                 │
+│  ├── No boot-time PackageManager work, cannot bootloop          │
+│  ├── Aurora Services priv-app enables silent app installs       │
+│  └── ROMs that already ship microG (Calyx, iode, eOS, Lineage   │
 │      for microG) detected by cert match, ROM copy preserved     │
 └─────────────────────────────────────────────────────────────────┘
 
