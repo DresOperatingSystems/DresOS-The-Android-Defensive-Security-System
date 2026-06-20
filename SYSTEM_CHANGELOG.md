@@ -1,6 +1,47 @@
 
 # DresOS Android Defensive Security System - Changelog
 
+## June 19, 2026 Update
+
+---
+
+### WebView - DresOS WebView Replaces AOSmium as the Module Engine
+
+The `dresoswv` WebView module no longer ships the AOSmium engine. It now installs **DresOS WebView**, DresOS's own Chromium build produced from Cromite (Chromium 145.0.7632.120), signed with the DresOS release key. The module keeps the same id, so flashing this version over an existing AOSmium install updates it in place: the AOSmium APK and its allowlist entry are replaced with DresOS WebView, the stale `webview_provider` selection is cleared on the next boot, and DresOS WebView is promoted automatically. No uninstall and no manual step.
+
+Step 5 (the module list), Step 7 (the deep dive), the What You Will Need table, the Replacement Overview, and the Part 3 App Suite entry (item 16) have all been updated to name DresOS WebView and `org.dresos.webview` in place of AOSmium. The download now points at `DresOS-WebView-v2_2_0.zip`.
+
+What changed in the module:
+
+- Engine swapped from AOSmium (`org.axpos.aosmium_wv`, AXP.OS signed) to DresOS WebView (`org.dresos.webview`, DresOS signed). Signing cert SHA-256 `B7815F746C3183C66CAD631079CB669C0494A8BE542A2A96E5975D8FABCD92DE` (DresOS RSA 4096).
+- The static RRO now whitelists `org.dresos.webview` with the DresOS certificate in `config_webview_packages`.
+- Host requirements updated to Magisk 29.0 or newer, Android 10 through 16, arm64 only. The old two-APK ABI selection is gone; a single arm64 APK ships.
+- Updating over the AOSmium build clears any stale provider selection that still points at `org.axpos.aosmium_wv`, so the swap is seamless.
+- Activation, the post-fs-data bootloop sentinel, the inert mode fallback, and the recovery safe stock WebView restore are unchanged.
+
+The engine is also published on its own now as a standalone signed APK in a dedicated repository, `https://github.com/DresOperatingSystems/DresOS-WebView`, with IzzyOnDroid and Obtainium support. That standalone app is the only brand new release in this cycle; the WebView module is an in place source update and is not cut as a new release.
+
+---
+
+### microG - DresOS microG Module Bumped to v3.0.1
+
+The DresOS microG module has been bumped to v3.0.1. A weekly GitHub Actions pipeline now pulls the latest officially signed microG core (GmsCore, Companion, GsfProxy) from the official microG F-Droid repo and auto-bumps the module when upstream changes. The bundled microG APKs and the install logic are unchanged. The module description was also corrected: microG coexists with the DresOS WebView module, the AOSmium WebView module it previously named having been replaced.
+
+---
+
+### Magisk Modules Roadmap
+
+- dresoswv: DresOS WebView - Released v2.2.0, engine now DresOS WebView (Cromite based)
+- dresosmicrog: DresOS microG - Released v3.0.1
+- dresosperms: Dangerous permission revocation from system apps - In active development
+- dresosdebloat: Core Google app and system bloat removal - Planned
+- dresosafwall: AFWall+ pre-configured iptables rules - Planned
+- dresosoverlay: System-level telemetry and advertising ID disabling - Planned
+- dresosfossify: Fossify suite system app installer - Planned
+- dresosheliboard: HeliBoard default keyboard installer - Planned
+
+---
+
 ## June 5, 2026 Update
 
 ---

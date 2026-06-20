@@ -87,18 +87,18 @@
 │  clients, shopping apps, microG sign-in pages, and hundreds     │
 │  more. Replaced entirely via a single Magisk module flash.      │
 │                                                                  │
-│  INSTALLED BY - DresOS AOSmium WebView Module v2.2.0            │
+│  INSTALLED BY - DresOS WebView Module v2.2.0                    │
 │  ├── Repo: github.com/DresOperatingSystems/DresOS-Magisk-Modules│
 │  ├── Single flash handles entire installation process:          │
-│  │   ├── Validates Magisk 24.0+, Android 10-15, arm/arm64       │
-│  │   ├── Aborts on x86/x86_64 (no AXP.OS WebView build)         │
+│  │   ├── Validates Magisk 29.0+, Android 10-16, arm64           │
+│  │   ├── Aborts on x86/x86_64 and 32-bit arm (arm64 only)       │
 │  │   ├── Aborts on APEX WebView devices (forward-looking guard) │
-│  │   ├── Picks correct AOSmium APK for device ABI from the two  │
-│  │   │   bundled in the zip (webview64-signed / webview32-signed)│
+│  │   ├── Single signed arm64 APK, no per-ABI APK                │
+│  │   │   selection (DresOS WebView is arm64 only)                │
 │  │   ├── Drops APK into systemless tree at                       │
-│  │   │   system/product/app/AOSmiumWebView/ via magic mount     │
+│  │   │   system/product/app/DresOSWebView/ via magic mount      │
 │  │   ├── Places static RRO in systemless overlay partition that │
-│  │   │   adds org.axpos.aosmium_wv + AXP.OS ECDSA certificate   │
+│  │   │   adds org.dresos.webview + DresOS RSA certificate       │
 │  │   │   to framework config_webview_packages allowlist         │
 │  │   ├── OEM WebView (com.google.android.webview /              │
 │  │   │   com.android.webview) kept as fallback in allowlist     │
@@ -121,15 +121,15 @@
 │      ├── /data/adb/modules/dresoswv/logs/service.log            │
 │      └── /data/adb/modules/dresoswv/webview_activation.log      │
 │                                                                  │
-│  WEBVIEW ENGINE - AOSmium (AXP.OS Project)                      │
-│  ├── Package: org.axpos.aosmium_wv                              │
-│  ├── Chromium 147.0.7727.49                                     │
-│  ├── GrapheneOS / Vanadium security patches applied             │
+│  WEBVIEW ENGINE - DresOS WebView (Cromite based)                │
+│  ├── Package: org.dresos.webview                                │
+│  ├── Chromium 145.0.7632.120 (Cromite base)                     │
+│  ├── Cromite privacy and security hardening applied             │
 │  ├── Google services and anti-features stripped throughout      │
-│  └── Cert SHA-256: 005C9805D501BF50C1A8BFD3204B6908843088581F   │
-│      DCF3DB8AB4F688FFC0E7B6 (AXP.OS ECDSA P-521)                │
+│  └── Cert SHA-256: B7815F746C3183C66CAD631079CB669C0494A8BE54   │
+│      2A2A96E5975D8FABCD92DE (DresOS RSA 4096)                   │
 │                                                                  │
-│  LICENSE - Module: GPL-3.0 | AOSmium APK: AXP.OS license        │
+│  LICENSE - Module: GPL-3.0 | DresOS WebView: GPL-3.0            │
 │                                                                  │
 │  After flash and reboot: activation is automatic. Verify with    │
 │  adb shell dumpsys webviewupdate | grep "Current WebView"        │
@@ -233,7 +233,7 @@ No single point of failure in the stack.
   Your real IP address        -> Blocked by InviZible Pro (Tor)
   DNS surveillance            -> Blocked by DNSCrypt + DNSSEC (iptables)
   In-app trackers             -> Blocked by DDG App Tracking Protection
-  WebView data harvesting     -> Blocked by AOSmium (DresOS Magisk Module)
+  WebView data harvesting     -> Blocked by DresOS WebView (DresOS WebView Module)
   GPS tracking                -> Blocked by Fake Traveler
   Wi-Fi MAC tracking          -> Blocked by MAC randomisation
   Phishing via email          -> Blocked by Duck Address aliases
