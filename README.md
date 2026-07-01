@@ -3,10 +3,6 @@
 **A Complete Rooted DeGoogling + Operational Security Guide**
 **TWRP + Magisk + MicroG + Fossify + InviZible Pro + AFWall+ + DresOS App Suite – For 2026**
 
-[![Please Help fund future projects and keep this one going](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/dresos)
-
-> **Help fund the next module.** DresOS is built by a small open source team in our spare time. If this guide saves you a weekend of research, tip the jar at [ko-fi.com/dresos](https://ko-fi.com/dresos). Funds go to test devices, hosting, and developer time on the next Magisk module.
-
 ---
 
 > **Project Goal:** Turn any Android phone into a fully private, hardened, FOSS-only device with no Google tracking, no Google Services, no hidden data harvesting, and only open-source replacements then layer on a full defensive security stack to protect against surveillance, malware, censorship, and network-level attacks.
@@ -1880,3 +1876,10 @@ You now have a fully de-Googled, operationally secure Android device: no Google 
 ---
 
 **This is an update to both the degoogled and opsec project**
+
+## Donate
+
+> **Help fund future development.** DresOS is built by a small open source team in our spare time. If our guide, Magisk modules or app saved you a weekend of research, please tip the jar. Funds go to test devices, dev stations, and developer time on updates and future projects.
+
+[![Please Help fund future projects and keep this one going](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/dresos)
+
